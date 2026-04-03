@@ -291,7 +291,7 @@
       "subtasks": [],
       "priority": "high",
       "createdAt": "2026-04-03T21:49:22.066Z",
-      "status": "backlog",
+      "status": "in_progress",
       "sortOrder": 0
     }
   ],
@@ -310,6 +310,14 @@
     }
   ],
   "activities": [
+    {
+      "type": "moved",
+      "actor": "JavieHan",
+      "task": "汉化右侧 Activity 侧边栏代码",
+      "from": "backlog",
+      "to": "in_progress",
+      "time": "just now"
+    },
     {
       "type": "moved",
       "actor": "JavieHan",
@@ -339,5 +347,5 @@
       "time": "just now"
     }
   ],
-  "lastUpdated": "2026-04-03T21:53:49.470Z"
+  "lastUpdated": "2026-04-03T21:53:51.402Z"
 }
