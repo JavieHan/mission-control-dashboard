@@ -595,7 +595,7 @@
             background: rgba(16, 185, 129, 0.3);
         }
         
-        /* Scheduled Task Cards */
+        /* 已安排 Task Cards */
         .scheduled-card {
             background: var(--bg-card);
             border-radius: 8px;
@@ -2164,7 +2164,7 @@
             <nav class="nav-tabs">
                 <div class="nav-tab active" data-view="tasks" onclick="switchView('tasks')">任务</div>
                 <div class="nav-tab" data-view="docs" onclick="switchView('docs')">文档</div>
-                <div class="nav-tab" data-view="people" onclick="switchView('people')">People</div>
+                <div class="nav-tab" data-view="people" onclick="switchView('people')">成员</div>
             </nav>
             
             <!-- Search -->
@@ -2191,7 +2191,7 @@
         </div>
         <div class="header-right">
             <span class="live-indicator live" id="live-indicator">Live</span>
-            <button class="btn btn-secondary" onclick="pollForUpdates(); window.location.reload()">↻ Refresh</button>
+            <button class="btn btn-secondary" onclick="pollForUpdates(); window.location.reload()">↻ 刷新</button>
 
             <!-- Not Logged In -->
             <button class="btn btn-github" id="btn-connect" onclick="showAuthModal()">
@@ -2238,24 +2238,24 @@
     <div class="stats-bar">
         <div class="stat">
             <span class="stat-value" id="stat-week">0</span>
-            <span class="stat-label">This week</span>
+            <span class="stat-label">本周</span>
         </div>
         <div class="stat">
             <span class="stat-value" id="stat-progress">0</span>
-            <span class="stat-label">In progress</span>
+            <span class="stat-label">进行中</span>
         </div>
         <div class="stat">
             <span class="stat-value" id="stat-total">0</span>
-            <span class="stat-label">Total</span>
+            <span class="stat-label">总计</span>
         </div>
         <div class="stat">
             <span class="stat-value stat-highlight" id="stat-completion">0%</span>
-            <span class="stat-label">Completion</span>
+            <span class="stat-label">完成度</span>
         </div>
     </div>
 
     <div class="filters" id="filters">
-        <button class="filter-btn active" data-filter="all">All projects</button>
+        <button class="filter-btn active" data-filter="all">全部项目</button>
     </div>
 
     <main class="main">
@@ -2263,7 +2263,7 @@
             <div class="column column-recurring">
                 <div class="column-header">
                     <div class="column-dot recurring"></div>
-                    <span class="column-title">Recurring</span>
+                    <span class="column-title">周期任务</span>
                     <span class="column-count" id="count-recurring">0</span>
                 </div>
                 <div class="column-tasks" id="tasks-recurring" ondragover="handleCronDragOver(event)" ondragleave="handleCronDragLeave(event)" ondrop="handleCronDrop(event)"></div>
@@ -2272,9 +2272,9 @@
             <div class="column column-scheduled">
                 <div class="column-header">
                     <div class="column-dot scheduled"></div>
-                    <span class="column-title">📅 Scheduled</span>
+                    <span class="column-title">📅 已安排</span>
                     <span class="column-count" id="count-scheduled">0</span>
-                    <span class="column-add" onclick="openScheduledTaskModal()" title="Schedule a task">+</span>
+                    <span class="column-add" onclick="open已安排TaskModal()" title="Schedule a task">+</span>
                 </div>
                 <div class="column-tasks" id="tasks-scheduled" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event, 'scheduled')"></div>
             </div>
@@ -2282,7 +2282,7 @@
             <div class="column column-templates">
                 <div class="column-header">
                     <div class="column-dot templates"></div>
-                    <span class="column-title">📑 Templates</span>
+                    <span class="column-title">📑 模板</span>
                     <span class="column-count" id="count-templates">0</span>
                     <span class="column-add" onclick="openNewTemplate()" title="Add new template">+</span>
                 </div>
@@ -2706,7 +2706,7 @@
                         <label class="form-label">Status</label>
                         <select class="form-input" id="task-status">
                             <option value="permanent">Permanent</option>
-                            <option value="scheduled">Scheduled</option>
+                            <option value="scheduled">已安排</option>
                             <option value="backlog">待办</option>
                             <option value="in_progress">进行中</option>
                             <option value="review">待审核</option>
@@ -2976,7 +2976,7 @@
                     subtasks: [
                         { id: "sub_001", title: "Competitor analysis", done: false },
                         { id: "sub_002", title: "Wireframe concepts", done: false },
-                        { id: "sub_003", title: "Design mockups", done: false },
+                        { id: "sub_003", title: "设计 mockups", done: false },
                         { id: "sub_004", title: "Get stakeholder feedback", done: false }
                     ],
                     priority: "high",
@@ -3153,11 +3153,11 @@
                 }
             ],
             projects: [
-                { id: "devops", name: "DevOps", color: "#3b82f6", icon: "💻" },
-                { id: "growth", name: "Growth", color: "#10b981", icon: "📈" },
-                { id: "design", name: "Design", color: "#f59e0b", icon: "🎨" },
-                { id: "personal", name: "Personal", color: "#8b5cf6", icon: "🏠" },
-                { id: "wellness", name: "Wellness", color: "#ec4899", icon: "🧘" }
+                { id: "devops", name: "运维", color: "#3b82f6", icon: "💻" },
+                { id: "growth", name: "增长", color: "#10b981", icon: "📈" },
+                { id: "design", name: "设计", color: "#f59e0b", icon: "🎨" },
+                { id: "personal", name: "个人", color: "#8b5cf6", icon: "🏠" },
+                { id: "wellness", name: "健康", color: "#ec4899", icon: "🧘" }
             ],
             activities: [
                 { type: "completed", actor: "You", task: "Social media content calendar", time: "2 hours ago" },
@@ -3268,8 +3268,8 @@
             renderFilters();
             renderTasks();
             renderCrons();
-            renderTemplates();
-            renderScheduledTasks();
+            render模板();
+            render已安排Tasks();
             renderActivity();
             updateStats();
             updateProjectDropdown();
@@ -3388,7 +3388,7 @@
             countEl.textContent = crons.filter(c => c.enabled).length;
             
             if (crons.length === 0) {
-                container.innerHTML = '<div class="empty-state">No recurring jobs</div>';
+                container.innerHTML = '<div class="empty-state">暂无周期任务</div>';
                 return;
             }
             
@@ -3775,8 +3775,8 @@
 
         function renderTaskCard(task) {
             const subtasks已完成 = task.subtasks.filter(s => s.done).length;
-            const subtasksTotal = task.subtasks.length;
-            const progress = subtasksTotal > 0 ? Math.round((subtasks已完成 / subtasksTotal) * 100) : 0;
+            const subtasks总计 = task.subtasks.length;
+            const progress = subtasks总计 > 0 ? Math.round((subtasks已完成 / subtasks总计) * 100) : 0;
             const commentsCount = (task.comments || []).length;
             const is归档d = task.archived === true;
 
@@ -3873,10 +3873,10 @@
                         </div>
                         ${commentIndicator}
                     </div>
-                    ${subtasksTotal > 0 ? `
+                    ${subtasks总计 > 0 ? `
                         <div class="task-subtasks">
                             <div class="subtask-progress">
-                                <span>${subtasks已完成}/${subtasksTotal}</span>
+                                <span>${subtasks已完成}/${subtasks总计}</span>
                                 <div class="progress-bar">
                                     <div class="progress-fill" style="width: ${progress}%"></div>
                                 </div>
@@ -4287,7 +4287,7 @@
                 `<button class="filter-btn" data-filter="${p.id}" onclick="filterByProject('${p.id}')">${p.icon} ${p.name}</button>`
             ).join('');
             container.innerHTML = `
-                <button class="filter-btn active" data-filter="all" onclick="filterByProject('all')">All projects</button>
+                <button class="filter-btn active" data-filter="all" onclick="filterByProject('all')">全部项目</button>
                 ${projectButtons}
             `;
         }
@@ -5051,7 +5051,7 @@
             hideTaskModal();
             
             if (isEditingTemplate) {
-                renderTemplates();
+                render模板();
             } else {
                 renderTasks(true); // Animate reorder
             }
@@ -5393,7 +5393,7 @@
             } else if (diff < 0) {
                 html += `• Deleted ${Math.abs(diff)} task(s)<br>`;
             }
-            html += `• Total tasks: ${current}`;
+            html += `• 总计 tasks: ${current}`;
 
             return html;
         }
@@ -5489,7 +5489,7 @@
         setInterval(updateLiveIndicator, 1000);
 
         // === TEMPLATES FUNCTIONS ===
-        function renderTemplates() {
+        function render模板() {
             const container = document.getElementById('tasks-templates');
             const countEl = document.getElementById('count-templates');
             const data = STATE.data || FALLBACK_DATA;
@@ -5498,7 +5498,7 @@
             countEl.textContent = templates.length;
             
             if (templates.length === 0) {
-                container.innerHTML = '<div class="empty-state">No templates yet</div>';
+                container.innerHTML = '<div class="empty-state">暂无模板</div>';
                 return;
             }
             
@@ -5618,7 +5618,7 @@
             // Increment execution counter
             template.executionCount = (template.executionCount || 0) + 1;
             
-            renderTemplates();
+            render模板();
             renderTasks();
             autoSave(`Execute template "${template.title}"`);
             showToast('success', `Created task from template: ${newTask.title}`);
@@ -5662,7 +5662,7 @@
             }
             
             STATE.data.tasks.push(newTemplate);
-            renderTemplates();
+            render模板();
             autoSave(`Duplicate template "${template.title}"`);
             
             // Open edit modal with focus on title
@@ -5749,7 +5749,7 @@
         }
 
         // === SCHEDULED TASKS FUNCTIONS (Task 7) ===
-        function renderScheduledTasks() {
+        function render已安排Tasks() {
             const container = document.getElementById('tasks-scheduled');
             const countEl = document.getElementById('count-scheduled');
             const data = STATE.data || FALLBACK_DATA;
@@ -5758,7 +5758,7 @@
             countEl.textContent = scheduled.length;
             
             if (scheduled.length === 0) {
-                container.innerHTML = '<div class="empty-state">No scheduled tasks</div>';
+                container.innerHTML = '<div class="empty-state">暂无已安排任务</div>';
                 return;
             }
             
@@ -5769,7 +5769,7 @@
                 const scheduledDate = new Date(task.scheduledAt);
                 const now = new Date();
                 const isOverdue = scheduledDate < now;
-                const countdown = formatScheduledCountdown(scheduledDate);
+                const countdown = format已安排Countdown(scheduledDate);
                 
                 return `
                     <div class="scheduled-card ${isOverdue ? 'overdue' : ''}" data-task-id="${task.id}" onclick="openTaskDetail('${task.id}')">
@@ -5785,10 +5785,10 @@
             }).join('');
             
             // Check for overdue tasks
-            checkScheduledTasks();
+            check已安排Tasks();
         }
 
-        function formatScheduledCountdown(date) {
+        function format已安排Countdown(date) {
             const now = new Date();
             const diff = date - now;
             
@@ -5803,7 +5803,7 @@
             return `in ${minutes}m`;
         }
 
-        function checkScheduledTasks() {
+        function check已安排Tasks() {
             const data = STATE.data || FALLBACK_DATA;
             const scheduled = data.tasks.filter(t => t.scheduledAt && t.status === 'scheduled');
             const now = new Date();
@@ -5812,25 +5812,25 @@
                 const scheduledDate = new Date(task.scheduledAt);
                 if (scheduledDate <= now) {
                     // Auto-execute overdue task
-                    executeScheduledTask(task.id);
+                    execute已安排Task(task.id);
                 }
             });
         }
 
-        function executeScheduledTask(taskId) {
+        function execute已安排Task(taskId) {
             const task = STATE.data.tasks.find(t => t.id === taskId);
             if (!task) return;
             
             task.status = 'in_progress';
             delete task.scheduledAt;
             
-            renderScheduledTasks();
+            render已安排Tasks();
             renderTasks();
             autoSave(`Auto-execute scheduled task "${task.title}"`);
-            showToast('success', `Scheduled task "${task.title}" is now in progress!`);
+            showToast('success', `已安排 task "${task.title}" is now in progress!`);
         }
 
-        function openScheduledTaskModal() {
+        function open已安排TaskModal() {
             if (!STATE.user) {
                 showToast('error', 'Login to schedule tasks');
                 return;
@@ -5848,7 +5848,7 @@
                 <div class="modal" style="max-width: 500px;">
                     <div class="modal-header">
                         <h2 class="modal-title">📅 Schedule Task</h2>
-                        <button class="modal-close" onclick="closeScheduledTaskDialog()">&times;</button>
+                        <button class="modal-close" onclick="close已安排TaskDialog()">&times;</button>
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
@@ -5860,7 +5860,7 @@
                             <textarea class="form-input" id="scheduled-description" rows="2" placeholder="任务描述"></textarea>
                         </div>
                         <div class="form-group">
-                            <label class="form-label">Scheduled For</label>
+                            <label class="form-label">已安排 For</label>
                             <input type="datetime-local" class="form-input" id="scheduled-datetime" value="${dateStr}">
                         </div>
                         <div class="form-group">
@@ -5873,8 +5873,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-secondary" onclick="closeScheduledTaskDialog()" >取消</button>
-                        <button class="btn btn-primary" onclick="saveScheduledTask()">Schedule Task</button>
+                        <button class="btn btn-secondary" onclick="close已安排TaskDialog()" >取消</button>
+                        <button class="btn btn-primary" onclick="save已安排Task()">Schedule Task</button>
                     </div>
                 </div>
             `;
@@ -5882,12 +5882,12 @@
             document.getElementById('scheduled-title').focus();
         }
 
-        function closeScheduledTaskDialog() {
+        function close已安排TaskDialog() {
             const dialog = document.getElementById('scheduled-task-dialog');
             if (dialog) dialog.remove();
         }
 
-        function saveScheduledTask() {
+        function save已安排Task() {
             const title = document.getElementById('scheduled-title').value.trim();
             const description = document.getElementById('scheduled-description').value.trim();
             const datetime = document.getElementById('scheduled-datetime').value;
@@ -5919,20 +5919,20 @@
             };
             
             STATE.data.tasks.push(newTask);
-            closeScheduledTaskDialog();
-            renderScheduledTasks();
+            close已安排TaskDialog();
+            render已安排Tasks();
             autoSave(`Schedule task "${title}"`);
             showToast('success', `Task scheduled for ${new Date(scheduledAt).toLocaleString()}`);
         }
 
         // Check scheduled tasks every minute
         setInterval(() => {
-            if (STATE.data) checkScheduledTasks();
+            if (STATE.data) check已安排Tasks();
         }, 60000);
         
         // Update scheduled task countdowns every 30 seconds
         setInterval(() => {
-            if (STATE.data) renderScheduledTasks();
+            if (STATE.data) render已安排Tasks();
         }, 30000);
         
         // Update processing task timers every 30 seconds (for elapsed time display)
@@ -5982,7 +5982,7 @@
         function handleCronDrop(event) {
             event.preventDefault();
             event.currentTarget.classList.remove('drag-over');
-            // Crons dropped back on Recurring - do nothing
+            // Crons dropped back on 周期任务 - do nothing
         }
         
         // Extended handleDrop for Cron drops
@@ -6956,7 +6956,7 @@
             }
         }
 
-        // Extend switchView to load collaborators when People tab is selected
+        // Extend switchView to load collaborators when 成员 tab is selected
         const originalSwitchView = switchView;
         switchView = function(viewName) {
             originalSwitchView(viewName);
@@ -6987,11 +6987,11 @@
         });
 
         // Auto-refresh crons data every 5 minutes for live status updates
-        let cronRefreshInterval = null;
+        let cron刷新Interval = null;
         let cronRenderInterval = null;
         
-        function startCronAutoRefresh() {
-            if (cronRefreshInterval) clearInterval(cronRefreshInterval);
+        function startCronAuto刷新() {
+            if (cron刷新Interval) clearInterval(cron刷新Interval);
             if (cronRenderInterval) clearInterval(cronRenderInterval);
             
             // Re-render crons every 30 seconds to update running status
@@ -7002,7 +7002,7 @@
             }, 30 * 1000); // 30 seconds
             
             // Fetch fresh data from GitHub every 5 minutes
-            cronRefreshInterval = setInterval(async () => {
+            cron刷新Interval = setInterval(async () => {
                 if (!document.hidden && STATE.token) {
                     try {
                         if (!(await loadCronsFromGateway())) await loadCronsFromGitHub();
@@ -7015,7 +7015,7 @@
         }
         
         // Start auto-refresh after page loads
-        setTimeout(startCronAutoRefresh, 10000); // Start 10s after load
+        setTimeout(startCronAuto刷新, 10000); // Start 10s after load
 
         // === VERSION CHECK FUNCTIONS ===
         async function checkForUpdates() {
