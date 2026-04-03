@@ -290,7 +290,8 @@
       "subtasks": [],
       "priority": "high",
       "createdAt": "2026-04-03T21:49:22.066Z",
-      "status": "backlog"
+      "status": "in_progress",
+      "sortOrder": 0
     }
   ],
   "projects": [
@@ -309,6 +310,14 @@
   ],
   "activities": [
     {
+      "type": "moved",
+      "actor": "JavieHan",
+      "task": "汉化右侧 Activity 侧边栏代码",
+      "from": "backlog",
+      "to": "in_progress",
+      "time": "just now"
+    },
+    {
       "type": "created",
       "actor": "Mission Control",
       "task": "Onboarding Guide",
@@ -321,5 +330,5 @@
       "time": "just now"
     }
   ],
-  "lastUpdated": "2026-04-03T21:49:22.066Z"
+  "lastUpdated": "2026-04-03T21:49:29.685Z"
 }
