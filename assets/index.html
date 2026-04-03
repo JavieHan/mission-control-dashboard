@@ -3280,7 +3280,7 @@
             try {
                 const token = STATE.token || localStorage.getItem('gh_token');
                 const response = await fetch(
-                    `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/data/crons.json`,
+                    `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/assets/data/crons.json`,
                     { headers: { 'Authorization': `token ${token}` } }
                 );
                 
@@ -3347,7 +3347,7 @@
                 const content = btoa(unescape(encodeURIComponent(JSON.stringify({ crons: STATE.crons }, null, 2))));
                 
                 const response = await fetch(
-                    `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/data/crons.json`,
+                    `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/assets/data/crons.json`,
                     {
                         method: 'PUT',
                         headers: {
