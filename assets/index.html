@@ -1166,7 +1166,7 @@
             flex: 1;
         }
 
-        /* Comments in Modal */
+        /* 评论 in Modal */
         .comments-list {
             display: flex;
             flex-direction: column;
@@ -1203,7 +1203,7 @@
             color: var(--text-secondary);
         }
 
-        /* Task Actions (Review buttons) */
+        /* Task Actions (待审核 buttons) */
         .task-actions {
             display: flex;
             gap: 0.5rem;
@@ -2100,7 +2100,7 @@
         <div class="login-container">
             <div class="login-logo">🎯</div>
             <h1 class="login-title">Mission Control</h1>
-            <p class="login-subtitle">Task & Project Management Dashboard</p>
+            <p class="login-subtitle">任务与项目管理看板</p>
 
             <div class="login-card">
                 <h2>🔐 Login Required</h2>
@@ -2110,9 +2110,9 @@
                     <div class="login-step">
                         <span class="login-step-num">1</span>
                         <div>
-                            <strong>Create a Personal Access Token</strong>
+                            <strong>创建个人访问令牌</strong>
                             <a href="https://github.com/settings/tokens/new?scopes=repo&description=Mission%20Control%20Dashboard" target="_blank" class="login-link">
-                                Create token on GitHub →
+                                前往 GitHub 创建令牌 →
                             </a>
                         </div>
                     </div>
@@ -2162,8 +2162,8 @@
                 <span>Mission Control</span>
             </div>
             <nav class="nav-tabs">
-                <div class="nav-tab active" data-view="tasks" onclick="switchView('tasks')">Tasks</div>
-                <div class="nav-tab" data-view="docs" onclick="switchView('docs')">Docs</div>
+                <div class="nav-tab active" data-view="tasks" onclick="switchView('tasks')">任务</div>
+                <div class="nav-tab" data-view="docs" onclick="switchView('docs')">文档</div>
                 <div class="nav-tab" data-view="people" onclick="switchView('people')">People</div>
             </nav>
             
@@ -2173,19 +2173,19 @@
                     <input type="text" 
                            id="search-input" 
                            class="search-input" 
-                           placeholder="Search tasks..." 
+                           placeholder="搜索任务..." 
                            oninput="handleSearch(this.value)"
                            onkeydown="if(event.key==='Escape'){clearSearch()}">
                     <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <circle cx="11" cy="11" r="8"></circle>
                         <path d="M21 21l-4.35-4.35"></path>
                     </svg>
-                    <button class="search-clear" onmousedown="event.preventDefault()" onclick="clearSearch()" title="Clear search">×</button>
+                    <button class="search-clear" onmousedown="event.preventDefault()" onclick="clearSearch()" title="清除搜索">×</button>
                 </div>
                 <span class="search-info" id="search-info"></span>
                 <label class="archive-search-toggle" title="Include archived tasks in search">
-                    <input type="checkbox" id="search-include-archived" onchange="toggleArchiveSearch(this.checked)">
-                    <span>📦 Archive</span>
+                    <input type="checkbox" id="search-include-archived" onchange="toggle归档Search(this.checked)">
+                    <span>📦 归档</span>
                 </label>
             </div>
         </div>
@@ -2198,15 +2198,15 @@
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                     <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
                 </svg>
-                Connect GitHub
+                连接 GitHub
             </button>
 
             <!-- Logged In (hidden by default) -->
             <div class="user-profile" id="user-profile" style="display: none;">
                 <img class="user-avatar" id="user-avatar" src="" alt="Avatar">
                 <span class="user-name" id="user-name"></span>
-                <button class="btn-icon" onclick="showSettingsModal()" title="Settings">⚙️</button>
-                <span class="user-logout" onclick="logout()">Logout</span>
+                <button class="btn-icon" onclick="show设置Modal()" title="设置">⚙️</button>
+                <span class="user-logout" onclick="logout()">退出登录</span>
             </div>
         </div>
     </header>
@@ -2228,7 +2228,7 @@
         <span class="unsaved-text">⚠️ You have unsaved changes</span>
         <div>
             <button class="btn btn-secondary btn-small" onclick="discardChanges()">Discard</button>
-            <button class="btn btn-primary btn-small" onclick="showCommitModal()">Save & Commit</button>
+            <button class="btn btn-primary btn-small" onclick="showCommitModal()">保存并提交</button>
         </div>
     </div>
 
@@ -2294,7 +2294,7 @@
                     <div class="column-dot permanent"></div>
                     <span class="column-title">Permanent</span>
                     <span class="column-count" id="count-permanent">0</span>
-                    <span class="column-add" onclick="openNewTask('permanent')" title="Add new task">+</span>
+                    <span class="column-add" onclick="openNewTask('permanent')" title="新建任务">+</span>
                 </div>
                 <div class="column-tasks" id="tasks-permanent" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event, 'permanent')"></div>
             </div>
@@ -2302,9 +2302,9 @@
             <div class="column">
                 <div class="column-header">
                     <div class="column-dot backlog"></div>
-                    <span class="column-title">Backlog</span>
+                    <span class="column-title">待办</span>
                     <span class="column-count" id="count-backlog">0</span>
-                    <span class="column-add" onclick="openNewTask('backlog')" title="Add new task">+</span>
+                    <span class="column-add" onclick="openNewTask('backlog')" title="新建任务">+</span>
                 </div>
                 <div class="column-tasks" id="tasks-backlog" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event, 'backlog')"></div>
             </div>
@@ -2312,9 +2312,9 @@
             <div class="column">
                 <div class="column-header">
                     <div class="column-dot in-progress"></div>
-                    <span class="column-title">In Progress</span>
+                    <span class="column-title">进行中</span>
                     <span class="column-count" id="count-in_progress">0</span>
-                    <span class="column-add" onclick="openNewTask('in_progress')" title="Add new task">+</span>
+                    <span class="column-add" onclick="openNewTask('in_progress')" title="新建任务">+</span>
                 </div>
                 <div class="column-tasks" id="tasks-in_progress" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event, 'in_progress')"></div>
             </div>
@@ -2322,9 +2322,9 @@
             <div class="column">
                 <div class="column-header">
                     <div class="column-dot review"></div>
-                    <span class="column-title">Review</span>
+                    <span class="column-title">待审核</span>
                     <span class="column-count" id="count-review">0</span>
-                    <span class="column-add" onclick="openNewTask('review')" title="Add new task">+</span>
+                    <span class="column-add" onclick="openNewTask('review')" title="新建任务">+</span>
                 </div>
                 <div class="column-tasks" id="tasks-review" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event, 'review')"></div>
             </div>
@@ -2332,10 +2332,10 @@
             <div class="column">
                 <div class="column-header">
                     <div class="column-dot done"></div>
-                    <span class="column-title">Done</span>
+                    <span class="column-title">已完成</span>
                     <span class="column-count" id="count-done">0</span>
-                    <button class="archive-all-btn" onclick="showArchiveView()" title="View archived tasks" style="background: transparent;">📂 View</button>
-                    <button class="archive-all-btn" onclick="archiveAllDone()" title="Archive all done tasks">📦 Archive All</button>
+                    <button class="archive-all-btn" onclick="show归档View()" title="查看归档任务" style="background: transparent;">📂 查看</button>
+                    <button class="archive-all-btn" onclick="archiveAll已完成()" title="归档所有已完成任务">📦 全部归档</button>
                 </div>
                 <div class="column-tasks" id="tasks-done" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event, 'done')"></div>
             </div>
@@ -2360,12 +2360,12 @@
     <!-- DOCS VIEW -->
     <div id="view-docs" class="view" style="display: none;">
         <div class="docs-container" style="max-width: 900px; margin: 0 auto; padding: 2rem;">
-            <h1 style="margin-bottom: 1.5rem;">📚 Mission Control Documentation</h1>
+            <h1 style="margin-bottom: 1.5rem;">📚 Mission Control 使用说明</h1>
 
             <div class="docs-section" style="margin-bottom: 2rem; background: var(--bg-secondary); padding: 1.5rem; border-radius: 12px; border-left: 4px solid var(--accent);">
                 <h2 style="color: var(--accent); margin-bottom: 0.5rem;">📌 Demo Mode</h2>
                 <p style="color: var(--text-secondary); line-height: 1.6;">
-                    You're currently viewing <strong>sample data</strong>. To manage your own tasks, click <strong>"Connect GitHub"</strong> in the top right corner to link your repository.
+                    当前显示的是 <strong>示例数据</strong>。要管理你自己的任务，请点击右上角的 <strong>「连接 GitHub」</strong> 关联你的仓库。
                 </p>
             </div>
 
@@ -2374,21 +2374,21 @@
 
                 <h3 style="margin: 1rem 0 0.5rem;">Installation</h3>
                 <p style="color: var(--text-secondary); line-height: 1.6;">
-                    Add Mission Control to your existing MoltBot workspace:
+                    将 Mission Control 添加到你现有的 MoltBot 工作区：
                 </p>
                 <ol style="color: var(--text-secondary); line-height: 1.8; margin-left: 1.5rem;">
                     <li><strong>Fork</strong> this repository to your GitHub account</li>
                     <li><strong>Copy dashboard files</strong> to your workspace: <code>index.html</code>, <code>data/</code>, <code>canvas/</code>, <code>scripts/</code>, <code>.github/</code></li>
-                    <li>Enable <strong>GitHub Pages</strong> in your repo settings (Settings → Pages → Branch: main)</li>
+                    <li>在仓库设置中启用 <strong>GitHub Pages</strong>（设置 → Pages → Branch: main）</li>
                     <li>Visit <code>https://[username].github.io/mission-control/</code></li>
                 </ol>
 
                 <h3 style="margin: 1.5rem 0 0.5rem;">Connect to GitHub</h3>
                 <p style="color: var(--text-secondary); line-height: 1.6;">
-                    Click <strong>"Connect GitHub"</strong> in the top right corner. You'll need a GitHub Personal Access Token with <code>repo</code> permissions.
+                    点击右上角的 <strong>「连接 GitHub」</strong>。你需要一个拥有 <code>repo</code> 权限的 GitHub 个人访问令牌 (PAT)。
                 </p>
                 <ol style="color: var(--text-secondary); line-height: 1.8; margin-left: 1.5rem;">
-                    <li>Go to <a href="https://github.com/settings/tokens" target="_blank" style="color: var(--accent);">GitHub Settings → Tokens</a></li>
+                    <li>前往 <a href="https://github.com/settings/tokens" target="_blank" style="color: var(--accent);">GitHub 设置 → Tokens</a></li>
                     <li>Click "Generate new token (classic)"</li>
                     <li>Select scope: <code>repo</code> (Full control of private repositories)</li>
                     <li>Copy the token and paste it in Mission Control</li>
@@ -2400,25 +2400,25 @@
                 </p>
                 <ul style="color: var(--text-secondary); line-height: 1.8; margin-left: 1.5rem;">
                     <li><strong>🔄 Permanent</strong> - Repeating tasks (daily, weekly checks)</li>
-                    <li><strong>📋 Backlog</strong> - Tasks waiting to be started</li>
-                    <li><strong>🚀 In Progress</strong> - Currently being worked on</li>
-                    <li><strong>👀 Review</strong> - Done, awaiting approval</li>
-                    <li><strong>✅ Done</strong> - Completed tasks</li>
+                    <li><strong>📋 待办</strong> - 等待开始的任务</li>
+                    <li><strong>🚀 进行中</strong> - 正在处理的任务</li>
+                    <li><strong>👀 待审核</strong> - 已完成，等待确认</li>
+                    <li><strong>✅ 已完成</strong> - 完成的任务</li>
                 </ul>
             </div>
 
             <div class="docs-section" style="margin-bottom: 2rem;">
                 <h2 style="color: var(--accent); margin-bottom: 1rem;">✨ Features</h2>
 
-                <h3 style="margin: 1rem 0 0.5rem;">Auto-Save</h3>
+                <h3 style="margin: 1rem 0 0.5rem;">自动保存</h3>
                 <p style="color: var(--text-secondary); line-height: 1.6;">
-                    All changes are <strong>automatically saved</strong> to GitHub. No manual "Save" button needed!
+                    所有修改都会<strong>自动保存</strong>到 GitHub，不需要手动点“保存”！
                 </p>
                 <ul style="color: var(--text-secondary); line-height: 1.8; margin-left: 1.5rem;">
                     <li>Drag & drop tasks between columns → instant save</li>
-                    <li>Edit task details → instant save</li>
-                    <li>Add/remove subtasks → instant save</li>
-                    <li>Add comments → instant save</li>
+                    <li>编辑任务详情 → 立即保存</li>
+                    <li>添加/删除子任务 → 立即保存</li>
+                    <li>添加评论 → 立即保存</li>
                 </ul>
 
                 <h3 style="margin: 1.5rem 0 0.5rem;">Drag & Drop</h3>
@@ -2431,14 +2431,14 @@
                     Break down tasks into smaller steps. Click on a subtask to edit it inline.
                 </p>
 
-                <h3 style="margin: 1.5rem 0 0.5rem;">Comments</h3>
+                <h3 style="margin: 1.5rem 0 0.5rem;">评论</h3>
                 <p style="color: var(--text-secondary); line-height: 1.6;">
-                    Add comments to tasks for context or feedback. Comments on <strong>Review</strong> tasks trigger notifications to MoltBot.
+                    给任务添加评论，补充上下文或反馈。对 <strong>待审核</strong> 任务的评论会触发通知给 MoltBot。
                 </p>
 
-                <h3 style="margin: 1.5rem 0 0.5rem;">Projects & Tags</h3>
+                <h3 style="margin: 1.5rem 0 0.5rem;">项目与标签</h3>
                 <p style="color: var(--text-secondary); line-height: 1.6;">
-                    Organize tasks by project. Use the ⚙️ Settings to add new projects. Filter tasks using the project buttons.
+                    按项目组织任务。用 ⚙️ 设置 添加新项目。也可以用项目按钮筛选任务。
                 </p>
             </div>
 
@@ -2448,9 +2448,9 @@
                     Mission Control is connected to MoltBot via webhooks. When you make changes:
                 </p>
                 <ul style="color: var(--text-secondary); line-height: 1.8; margin-left: 1.5rem;">
-                    <li><strong>Move task to "In Progress"</strong> → MoltBot receives a work order and starts processing</li>
-                    <li><strong>Add comment on Review task</strong> → MoltBot sees your feedback</li>
-                    <li><strong>MoltBot completes work</strong> → Task moves to "Review" automatically</li>
+                    <li><strong>把任务移动到「进行中」</strong> → MoltBot 收到工单并开始处理</li>
+                    <li><strong>给待审核任务添加评论</strong> → MoltBot 会看到你的反馈</li>
+                    <li><strong>MoltBot 完成工作</strong> → 任务会自动移到「待审核」</li>
                 </ul>
 
                 <div style="background: var(--bg-secondary); padding: 1rem; border-radius: 8px; margin-top: 1rem;">
@@ -2467,11 +2467,11 @@
                     </tr>
                     <tr style="border-bottom: 1px solid var(--border-color);">
                         <td style="padding: 0.5rem; color: var(--text-secondary);"><code>Escape</code></td>
-                        <td style="padding: 0.5rem;">Close modals</td>
+                        <td style="padding: 0.5rem;">关闭 modals</td>
                     </tr>
                     <tr style="border-bottom: 1px solid var(--border-color);">
                         <td style="padding: 0.5rem; color: var(--text-secondary);"><code>Enter</code></td>
-                        <td style="padding: 0.5rem;">Save inline edits</td>
+                        <td style="padding: 0.5rem;">保存内联编辑</td>
                     </tr>
                 </table>
             </div>
@@ -2489,7 +2489,7 @@
                 <details style="margin-bottom: 1rem;">
                     <summary style="cursor: pointer; font-weight: 500;">How do I create a new project?</summary>
                     <p style="color: var(--text-secondary); padding: 0.5rem 0 0 1rem;">
-                        Click the ⚙️ Settings button (when logged in) → Add a new project with ID, name, icon, and color.
+                        登录后点击 ⚙️ 设置 → 添加新项目，填写 ID、名称、图标和颜色。
                     </p>
                 </details>
 
@@ -2507,7 +2507,7 @@
     <div id="view-people" class="view" style="display: none;">
         <div class="people-container">
             <div class="people-header">
-                <h1>👥 Team</h1>
+                <h1>👥 团队</h1>
                 <div class="people-stats" id="people-stats">
                     <!-- Stats filled by JS -->
                 </div>
@@ -2537,7 +2537,7 @@
                     <div class="step">
                         <span class="step-number">1</span>
                         <div class="step-content">
-                            <div class="step-title">Create a Personal Access Token</div>
+                            <div class="step-title">创建个人访问令牌</div>
                             <div class="step-description">
                                 <a href="https://github.com/settings/tokens/new?scopes=repo&description=Mission%20Control%20Dashboard" target="_blank">
                                     Click here to create a token →
@@ -2562,7 +2562,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label">GitHub Personal Access Token</label>
+                    <label class="form-label">GitHub 个人访问令牌 (PAT)</label>
                     <input type="password" class="form-input" id="token-input" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off">
                     <div class="form-hint">
                         🔒 Your token is stored locally and never sent anywhere except GitHub.
@@ -2582,18 +2582,18 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-secondary" onclick="hideAuthModal()">Cancel</button>
-                <button class="btn btn-primary" id="btn-save-token" onclick="validateAndSaveToken()" disabled>Connect</button>
+                <button class="btn btn-secondary" onclick="hideAuthModal()" >取消</button>
+                <button class="btn btn-primary" id="btn-save-token" onclick="validateAndSaveToken()" disabled>连接</button>
             </div>
         </div>
     </div>
 
-    <!-- Settings Modal -->
-    <div class="modal-overlay" id="settings-modal" onclick="if(event.target===this)hideSettingsModal()">
+    <!-- 设置 Modal -->
+    <div class="modal-overlay" id="settings-modal" onclick="if(event.target===this)hide设置Modal()">
         <div class="modal" style="max-width: 500px;">
             <div class="modal-header">
-                <h2 class="modal-title">⚙️ Settings</h2>
-                <button class="modal-close" onclick="hideSettingsModal()">&times;</button>
+                <h2 class="modal-title">⚙️ 设置</h2>
+                <button class="modal-close" onclick="hide设置Modal()">&times;</button>
             </div>
             <div class="modal-body">
                 <h3 style="margin-bottom: 12px; font-size: 1rem;">🌐 OpenClaw Gateway</h3>
@@ -2601,7 +2601,7 @@
                     <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 8px;">Connect to your OpenClaw Gateway for live cron management.</p>
                     <div style="display: flex; gap: 8px;">
                         <input type="text" class="form-input" id="gateway-url-input" placeholder="http://localhost:18789" style="flex: 1;">
-                        <button class="btn btn-primary" onclick="saveGatewayUrl()">Connect</button>
+                        <button class="btn btn-primary" onclick="saveGatewayUrl()">连接</button>
                     </div>
                     <div id="gateway-status" style="font-size: 0.8rem; margin-top: 6px; color: var(--text-secondary);"></div>
                     <div style="margin-top: 10px;">
@@ -2609,17 +2609,17 @@
                         <div style="display: flex; gap: 8px;">
                             <input type="password" class="form-input" id="gateway-token-input" placeholder="Gateway Auth Token" style="flex: 1;">
                             <button class="btn btn-secondary" onclick="toggleGatewayTokenVisibility()" title="Show/Hide">👁️</button>
-                            <button class="btn btn-primary" onclick="saveGatewayToken()">Save</button>
+                            <button class="btn btn-primary" onclick="saveGatewayToken()">保存</button>
                         </div>
                         <div id="gateway-token-status" style="font-size: 0.8rem; margin-top: 6px; color: var(--text-secondary);"></div>
                     </div>
                 </div>
 
-                <h3 style="margin-bottom: 12px; font-size: 1rem;">Projects</h3>
+                <h3 style="margin-bottom: 12px; font-size: 1rem;">项目</h3>
                 <div id="projects-list" class="projects-list"></div>
 
                 <div class="add-project-form" style="margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border-color);">
-                    <h4 style="margin-bottom: 8px; font-size: 0.9rem;" id="project-form-title">Add New Project</h4>
+                    <h4 style="margin-bottom: 8px; font-size: 0.9rem;" id="project-form-title">添加新项目</h4>
                     <div style="display: grid; gap: 8px;">
                         <input type="text" class="form-input" id="new-project-id" placeholder="ID (z.B. marketing)">
                         <input type="text" class="form-input" id="new-project-name" placeholder="Name (z.B. Marketing)">
@@ -2647,8 +2647,8 @@
                         <div style="display: flex; gap: 8px; align-items: center;">
                             <label style="font-size: 0.8rem; color: var(--text-secondary);">Farbe:</label>
                             <input type="color" id="new-project-color" value="#6366f1" style="width: 50px; height: 32px; border: none; cursor: pointer; border-radius: 4px;">
-                            <button class="btn btn-secondary" id="btn-cancel-project" onclick="cancelEditProject()" style="display: none;">Cancel</button>
-                            <button class="btn btn-primary" id="btn-save-project" onclick="saveProject()" style="flex: 1;">+ Add Project</button>
+                            <button class="btn btn-secondary" id="btn-cancel-project" onclick="cancelEditProject()" style="display: none;">取消</button>
+                            <button class="btn btn-primary" id="btn-save-project" onclick="saveProject()" style="flex: 1;">+ 添加项目</button>
                         </div>
                     </div>
                 </div>
@@ -2660,7 +2660,7 @@
     <div class="modal-overlay" id="commit-modal" onclick="if(event.target===this)hideCommitModal()">
         <div class="modal">
             <div class="modal-header">
-                <h2 class="modal-title">💾 Save Changes to GitHub</h2>
+                <h2 class="modal-title">💾 将修改保存到 GitHub</h2>
                 <button class="modal-close" onclick="hideCommitModal()">&times;</button>
             </div>
             <div class="modal-body">
@@ -2676,7 +2676,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-secondary" onclick="hideCommitModal()">Cancel</button>
+                <button class="btn btn-secondary" onclick="hideCommitModal()" >取消</button>
                 <button class="btn btn-primary" id="btn-commit" onclick="commitChanges()">
                     <span id="commit-btn-text">Commit & Push</span>
                     <div class="spinner" id="commit-spinner" style="display: none;"></div>
@@ -2689,17 +2689,17 @@
     <div class="modal-overlay" id="task-modal" onclick="if(event.target===this)hideTaskModal()">
         <div class="modal" style="max-width: 600px;">
             <div class="modal-header">
-                <h2 class="modal-title" id="task-modal-title">Edit Task</h2>
+                <h2 class="modal-title" id="task-modal-title">编辑任务</h2>
                 <button class="modal-close" onclick="hideTaskModal()">&times;</button>
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label class="form-label">Title</label>
-                    <input type="text" class="form-input" id="task-title" placeholder="Task title">
+                    <label class="form-label">标题</label>
+                    <input type="text" class="form-input" id="task-title" placeholder="任务标题">
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Description</label>
-                    <textarea class="form-input" id="task-description" rows="3" placeholder="Task description" style="resize: vertical;"></textarea>
+                    <label class="form-label">描述</label>
+                    <textarea class="form-input" id="task-description" rows="3" placeholder="任务描述" style="resize: vertical;"></textarea>
                 </div>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
                     <div class="form-group">
@@ -2707,14 +2707,14 @@
                         <select class="form-input" id="task-status">
                             <option value="permanent">Permanent</option>
                             <option value="scheduled">Scheduled</option>
-                            <option value="backlog">Backlog</option>
-                            <option value="in_progress">In Progress</option>
-                            <option value="review">Review</option>
-                            <option value="done">Done</option>
+                            <option value="backlog">待办</option>
+                            <option value="in_progress">进行中</option>
+                            <option value="review">待审核</option>
+                            <option value="done">已完成</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Priority</label>
+                        <label class="form-label">优先级</label>
                         <select class="form-input" id="task-priority">
                             <option value="low">Low</option>
                             <option value="medium">Medium</option>
@@ -2732,8 +2732,8 @@
                     <label class="form-label">Tags</label>
                     <div id="tags-chips" class="tags-chips-container" style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px;"></div>
                     <div style="display: flex; gap: 8px;">
-                        <input type="text" class="form-input" id="new-tag-input" placeholder="Add tag..." style="flex: 1;" onkeydown="if(event.key==='Enter'){event.preventDefault();addTag();}">
-                        <button class="btn btn-secondary btn-small" onclick="addTag()">+ Add</button>
+                        <input type="text" class="form-input" id="new-tag-input" placeholder="添加标签..." style="flex: 1;" onkeydown="if(event.key==='Enter'){event.preventDefault();addTag();}">
+                        <button class="btn btn-secondary btn-small" onclick="addTag()" >+ 添加</button>
                     </div>
                     <input type="hidden" id="task-tags">
                 </div>
@@ -2743,26 +2743,26 @@
                     <label class="form-label">Subtasks</label>
                     <div class="subtasks-list" id="subtasks-list"></div>
                     <div class="subtask-add">
-                        <input type="text" class="form-input" id="new-subtask-input" placeholder="Add new subtask...">
-                        <button class="btn btn-secondary btn-small" onclick="addSubtask()">+ Add</button>
+                        <input type="text" class="form-input" id="new-subtask-input" placeholder="添加子任务...">
+                        <button class="btn btn-secondary btn-small" onclick="addSubtask()" >+ 添加</button>
                     </div>
                 </div>
 
-                <!-- Comments Section -->
+                <!-- 评论 Section -->
                 <div class="form-group" id="comments-section">
-                    <label class="form-label">Comments</label>
+                    <label class="form-label">评论</label>
                     <div class="comments-list" id="comments-list"></div>
                     <div class="comment-add">
-                        <textarea class="form-input" id="new-comment-input" rows="2" placeholder="Add a comment..."></textarea>
+                        <textarea class="form-input" id="new-comment-input" rows="2" placeholder="添加评论..."></textarea>
                         <button class="btn btn-secondary btn-small" onclick="addComment()">Post Comment</button>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-danger" id="btn-delete-task" onclick="deleteTask()" style="margin-right: auto;">Delete</button>
-                <button class="btn btn-secondary" id="btn-task-to-cron" onclick="openTaskToCronWizard(currentEditingTaskId)" title="Convert to recurring cron job">⏰ As Cron</button>
-                <button class="btn btn-secondary" onclick="hideTaskModal()">Cancel</button>
-                <button class="btn btn-primary" onclick="saveTask()">Save Task</button>
+                <button class="btn btn-danger" id="btn-delete-task" onclick="deleteTask()" style="margin-right: auto;" >删除</button>
+                <button class="btn btn-secondary" id="btn-task-to-cron" onclick="openTaskToCronWizard(currentEditingTaskId)" title="转换为周期性 cron 任务">⏰ 转为 Cron</button>
+                <button class="btn btn-secondary" onclick="hideTaskModal()" >取消</button>
+                <button class="btn btn-primary" onclick="saveTask()" >保存任务</button>
             </div>
         </div>
     </div>
@@ -2956,7 +2956,7 @@
                 },
                 {
                     id: "task_p02",
-                    title: "Review analytics dashboard",
+                    title: "待审核 analytics dashboard",
                     description: "Check KPIs and identify trends or anomalies",
                     status: "permanent",
                     project: "growth",
@@ -3707,7 +3707,7 @@
                 let tasks = data.tasks.filter(t => t.status === status && !t.isTemplate && t.status !== 'scheduled');
 
                 // Filter out archived tasks (unless searching with archive enabled)
-                if (!(showArchivedInSearch && searchQuery)) {
+                if (!(show归档dInSearch && searchQuery)) {
                     tasks = tasks.filter(t => !t.archived);
                 }
 
@@ -3716,9 +3716,9 @@
                     tasks = tasks.filter(t => t.project === currentFilter || (t.tags && t.tags.includes(currentFilter)));
                 }
 
-                // Sort: Done column by completedAt (newest first), others by priority + sortOrder
+                // Sort: 已完成 column by completedAt (newest first), others by priority + sortOrder
                 if (status === 'done') {
-                    // Done: newest completed tasks first
+                    // 已完成: newest completed tasks first
                     tasks.sort((a, b) => {
                         const dateA = a.completedAt ? new Date(a.completedAt).getTime() : 0;
                         const dateB = b.completedAt ? new Date(b.completedAt).getTime() : 0;
@@ -3774,37 +3774,37 @@
         }
 
         function renderTaskCard(task) {
-            const subtasksDone = task.subtasks.filter(s => s.done).length;
+            const subtasks已完成 = task.subtasks.filter(s => s.done).length;
             const subtasksTotal = task.subtasks.length;
-            const progress = subtasksTotal > 0 ? Math.round((subtasksDone / subtasksTotal) * 100) : 0;
+            const progress = subtasksTotal > 0 ? Math.round((subtasks已完成 / subtasksTotal) * 100) : 0;
             const commentsCount = (task.comments || []).length;
-            const isArchived = task.archived === true;
+            const is归档d = task.archived === true;
 
-            // Review actions
+            // 待审核 actions
             const reviewActions = task.status === 'review' ? `
                 <div class="task-actions" onclick="event.stopPropagation()">
-                    <button class="task-action-btn done" onclick="quickMoveTask('${task.id}', 'done')" title="Mark as Done">✓ Done</button>
-                    <button class="task-action-btn backlog" onclick="quickMoveTask('${task.id}', 'backlog')" title="Move to Backlog">↩ Backlog</button>
+                    <button class="task-action-btn done" onclick="quickMoveTask('${task.id}', 'done')" title="标记为已完成">✓ 已完成</button>
+                    <button class="task-action-btn backlog" onclick="quickMoveTask('${task.id}', 'backlog')" title="移回待办">↩ 待办</button>
                 </div>
             ` : '';
 
-            // Archive/Unarchive actions for done tasks
-            const archiveActions = task.status === 'done' && !isArchived ? `
+            // 归档/Unarchive actions for done tasks
+            const archiveActions = task.status === 'done' && !is归档d ? `
                 <div class="task-actions" onclick="event.stopPropagation()">
-                    <button class="task-action-btn archive" onclick="archiveTask('${task.id}')" title="Archive this task">📦 Archive</button>
+                    <button class="task-action-btn archive" onclick="archiveTask('${task.id}')" title="归档此任务">📦 归档</button>
                 </div>
             ` : '';
 
             // Unarchive button for archived tasks
-            const unarchiveActions = isArchived ? `
+            const unarchiveActions = is归档d ? `
                 <div class="task-actions" onclick="event.stopPropagation()">
                     <button class="task-action-btn unarchive" onclick="unarchiveTask('${task.id}')" title="Restore from archive">📤 Unarchive</button>
                 </div>
             ` : '';
 
-            // Archived badge
-            const archivedBadge = isArchived ? `
-                <span class="archived-badge">📦 Archived</span>
+            // 归档d badge
+            const archivedBadge = is归档d ? `
+                <span class="archived-badge">📦 已归档</span>
             ` : '';
 
             // Comment indicator
@@ -3856,8 +3856,8 @@
             }
 
             return `
-                <div class="task-card priority-${task.priority}${isArchived ? ' archived' : ''}${processingCardClass ? ' ' + processingCardClass : ''}" data-task-id="${task.id}"
-                     draggable="${!isArchived}"
+                <div class="task-card priority-${task.priority}${is归档d ? ' archived' : ''}${processingCardClass ? ' ' + processingCardClass : ''}" data-task-id="${task.id}"
+                     draggable="${!is归档d}"
                      ondragstart="handleDragStart(event, '${task.id}')"
                      ondragend="handleDragEnd(event)"
                      onclick="openTaskDetail('${task.id}')">
@@ -3876,7 +3876,7 @@
                     ${subtasksTotal > 0 ? `
                         <div class="task-subtasks">
                             <div class="subtask-progress">
-                                <span>${subtasksDone}/${subtasksTotal}</span>
+                                <span>${subtasks已完成}/${subtasksTotal}</span>
                                 <div class="progress-bar">
                                     <div class="progress-fill" style="width: ${progress}%"></div>
                                 </div>
@@ -4078,11 +4078,11 @@
             tasksInColumn.splice(insertIdx, 0, task);
 
             // Recalculate sortOrder for all tasks in this column (within same priority groups)
-            let currentPriority = null;
+            let current优先级 = null;
             let orderCounter = 0;
             tasksInColumn.forEach(t => {
-                if (t.priority !== currentPriority) {
-                    currentPriority = t.priority;
+                if (t.priority !== current优先级) {
+                    current优先级 = t.priority;
                     orderCounter = 0;
                 }
                 t.sortOrder = orderCounter++;
@@ -4148,7 +4148,7 @@
                     tasks = tasks.filter(t => t.project === currentFilter || (t.tags && t.tags.includes(currentFilter)));
                 }
 
-                // Sort: Done column by completedAt (newest first), others by priority + sortOrder
+                // Sort: 已完成 column by completedAt (newest first), others by priority + sortOrder
                 if (status === 'done') {
                     tasks.sort((a, b) => {
                         const dateA = a.completedAt ? new Date(a.completedAt).getTime() : 0;
@@ -4265,8 +4265,8 @@
         function addActivity(text, type = 'updated') {
             STATE.data.activities = STATE.data.activities || [];
             
-            // Parse the text to extract task name (format: "📦 Archived: Task Name" or similar)
-            const taskMatch = text.match(/:\s*(.+)$/) || text.match(/Archived\s+\d+\s+tasks?/);
+            // Parse the text to extract task name (format: "📦 归档d: Task Name" or similar)
+            const taskMatch = text.match(/:\s*(.+)$/) || text.match(/归档d\s+\d+\s+tasks?/);
             const taskName = taskMatch ? taskMatch[1] || taskMatch[0] : text;
             
             STATE.data.activities.unshift({
@@ -4294,7 +4294,7 @@
 
         let currentFilter = 'all';
         let searchQuery = '';
-        let showArchivedInSearch = false;
+        let show归档dInSearch = false;
 
         // === ARCHIVE FUNCTIONS ===
         function archiveTask(taskId) {
@@ -4302,7 +4302,7 @@
             if (task) {
                 task.archived = true;
                 task.archivedAt = new Date().toISOString();
-                addActivity(`📦 Archived: ${task.title}`, 'archive');
+                addActivity(`📦 归档d: ${task.title}`, 'archive');
                 renderTasks();
                 saveToGitHub();
             }
@@ -4321,7 +4321,7 @@
             }
         }
 
-        function archiveAllDone() {
+        function archiveAll已完成() {
             const doneTasks = STATE.data.tasks.filter(t => t.status === 'done' && !t.archived);
             if (doneTasks.length === 0) {
                 showToast('No tasks to archive', 'info');
@@ -4334,52 +4334,52 @@
                 task.archivedAt = new Date().toISOString();
             });
             
-            addActivity(`📦 Archived ${count} task${count > 1 ? 's' : ''} from Done`, 'archive');
+            addActivity(`📦 归档d ${count} task${count > 1 ? 's' : ''} from 已完成`, 'archive');
             renderTasks();
-            autoSave(`Archive ${count} task${count > 1 ? 's' : ''}`);
-            showToast(`Archived ${count} task${count > 1 ? 's' : ''}`, 'success');
+            autoSave(`归档 ${count} task${count > 1 ? 's' : ''}`);
+            showToast(`归档d ${count} task${count > 1 ? 's' : ''}`, 'success');
             
             // Check if we need to move old tasks to archive files
-            checkAndMoveOldArchivedTasks();
+            checkAndMoveOld归档dTasks();
         }
         
         // === TASK 6: ARCHIV-STRATEGIE ===
         let archivedTasksLoaded = false;
         let archiveIndex = null;
         
-        async function checkAndMoveOldArchivedTasks() {
+        async function checkAndMoveOld归档dTasks() {
             const now = new Date();
             const cutoffDate = new Date(now.getTime() - (90 * 24 * 60 * 60 * 1000)); // 90 days ago
             
-            const oldArchivedTasks = STATE.data.tasks.filter(t => 
+            const old归档dTasks = STATE.data.tasks.filter(t => 
                 t.archived && 
                 t.archivedAt && 
                 new Date(t.archivedAt) < cutoffDate
             );
             
-            if (oldArchivedTasks.length === 0) return;
+            if (old归档dTasks.length === 0) return;
             
             // Group by month
             const byMonth = {};
-            oldArchivedTasks.forEach(task => {
+            old归档dTasks.forEach(task => {
                 const date = new Date(task.archivedAt);
                 const key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
                 if (!byMonth[key]) byMonth[key] = [];
                 byMonth[key].push(task);
             });
             
-            console.log(`Moving ${oldArchivedTasks.length} old archived tasks to archive files`);
+            console.log(`Moving ${old归档dTasks.length} old archived tasks to archive files`);
             
             // For now, just mark them as offloaded (actual file operations would need backend)
-            oldArchivedTasks.forEach(task => {
-                task.offloadedToArchive = true;
+            old归档dTasks.forEach(task => {
+                task.offloadedTo归档 = true;
             });
             
             // Update archive index
-            await updateArchiveIndex(byMonth);
+            await update归档Index(byMonth);
         }
         
-        async function updateArchiveIndex(byMonth) {
+        async function update归档Index(byMonth) {
             if (!archiveIndex) {
                 archiveIndex = { archives: {}, lastUpdated: null };
             }
@@ -4399,7 +4399,7 @@
             archiveIndex.lastUpdated = new Date().toISOString();
         }
         
-        async function loadArchivedTasks() {
+        async function load归档dTasks() {
             if (archivedTasksLoaded) return;
             
             showToast('info', 'Loading archived tasks...');
@@ -4423,7 +4423,7 @@
             }
         }
         
-        function exportArchivedTasksCSV() {
+        function export归档dTasksCSV() {
             const archivedTasks = STATE.data.tasks.filter(t => t.archived);
             
             if (archivedTasks.length === 0) {
@@ -4432,7 +4432,7 @@
             }
             
             // CSV Header
-            const headers = ['ID', 'Title', 'Description', 'Status', 'Priority', 'Project', 'Tags', 'Created', 'Completed', 'Archived'];
+            const headers = ['ID', 'Title', 'Description', 'Status', '优先级', 'Project', 'Tags', 'Created', 'Completed', '归档d'];
             
             // CSV Rows
             const rows = archivedTasks.map(task => [
@@ -4460,9 +4460,9 @@
             showToast('success', `Exported ${archivedTasks.length} archived tasks to CSV`);
         }
         
-        function showArchiveView() {
+        function show归档View() {
             // Load archived tasks if not already loaded
-            loadArchivedTasks();
+            load归档dTasks();
             
             const archivedTasks = STATE.data.tasks.filter(t => t.archived);
             
@@ -4472,8 +4472,8 @@
             dialog.innerHTML = `
                 <div class="modal" style="max-width: 700px; max-height: 80vh;">
                     <div class="modal-header">
-                        <h2 class="modal-title">📦 Archive (${archivedTasks.length} tasks)</h2>
-                        <button class="modal-close" onclick="closeArchiveView()">&times;</button>
+                        <h2 class="modal-title">📦 归档（${archivedTasks.length} 个任务）</h2>
+                        <button class="modal-close" onclick="close归档View()">&times;</button>
                     </div>
                     <div class="modal-body" style="overflow-y: auto; max-height: 50vh;">
                         ${archivedTasks.length === 0 ? '<div class="empty-state">No archived tasks</div>' : 
@@ -4482,10 +4482,10 @@
                                 <div>
                                     <strong>${task.title}</strong>
                                     <div style="font-size: 0.8rem; color: var(--text-secondary);">
-                                        Archived: ${new Date(task.archivedAt).toLocaleDateString()}
+                                        归档时间：${new Date(task.archivedAt).toLocaleDateString()}
                                     </div>
                                 </div>
-                                <button class="btn btn-secondary btn-small" onclick="unarchiveTask('${task.id}'); closeArchiveView();">
+                                <button class="btn btn-secondary btn-small" onclick="unarchiveTask('${task.id}'); close归档View();">
                                     📤 Restore
                                 </button>
                             </div>
@@ -4493,21 +4493,21 @@
                         }
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-secondary" onclick="exportArchivedTasksCSV()">📥 Export CSV</button>
-                        <button class="btn btn-primary" onclick="closeArchiveView()">Close</button>
+                        <button class="btn btn-secondary" onclick="export归档dTasksCSV()">📥 导出 CSV</button>
+                        <button class="btn btn-primary" onclick="close归档View()">关闭</button>
                     </div>
                 </div>
             `;
             document.body.appendChild(dialog);
         }
         
-        function closeArchiveView() {
+        function close归档View() {
             const dialog = document.getElementById('archive-view-dialog');
             if (dialog) dialog.remove();
         }
 
-        function toggleArchiveSearch(enabled) {
-            showArchivedInSearch = enabled;
+        function toggle归档Search(enabled) {
+            show归档dInSearch = enabled;
             renderTasks();
             if (searchQuery) {
                 applySearchFilter();
@@ -4518,7 +4518,7 @@
             searchQuery = query.toLowerCase().trim();
             
             // Re-render tasks if archive search is enabled (to show/hide archived tasks)
-            if (showArchivedInSearch) {
+            if (show归档dInSearch) {
                 renderTasks();
             }
             
@@ -4591,7 +4591,7 @@
             searchQuery = '';
             
             // Re-render to hide archived tasks when search is cleared
-            if (showArchivedInSearch) {
+            if (show归档dInSearch) {
                 renderTasks();
             }
             
@@ -4681,7 +4681,7 @@
             isEditingTemplate = task.isTemplate === true;
 
             // Populate modal
-            document.getElementById('task-modal-title').textContent = task.isTemplate ? '📑 Edit Template' : 'Edit Task';
+            document.getElementById('task-modal-title').textContent = task.isTemplate ? '📑 编辑模板' : '编辑任务';
             document.getElementById('task-title').value = task.title;
             document.getElementById('task-description').value = task.description;
             document.getElementById('task-status').value = task.isTemplate ? (task.baseStatus || 'backlog') : task.status;
@@ -4703,7 +4703,7 @@
             renderSubtasks(task);
 
             // Render comments
-            renderComments(task);
+            render评论(task);
 
             document.getElementById('task-modal').classList.add('visible');
         }
@@ -4782,7 +4782,7 @@
             }
         }
 
-        function renderComments(task) {
+        function render评论(task) {
             const container = document.getElementById('comments-list');
             const comments = task.comments || [];
             if (comments.length === 0) {
@@ -4827,7 +4827,7 @@
             cancelBtn.textContent = 'Cancel';
             cancelBtn.className = 'btn btn-secondary btn-small';
             cancelBtn.style.cssText = 'margin-top: 8px; margin-left: 8px;';
-            cancelBtn.onclick = () => renderComments(task);
+            cancelBtn.onclick = () => render评论(task);
 
             textEl.innerHTML = '';
             textEl.appendChild(textarea);
@@ -4847,10 +4847,10 @@
             if (oldText !== newText) {
                 task.comments[commentIdx].text = newText;
                 task.comments[commentIdx].editedAt = new Date().toISOString();
-                renderComments(task);
+                render评论(task);
                 autoSave(`Edit comment on "${task.title}"`);
             } else {
-                renderComments(task);
+                render评论(task);
             }
         }
 
@@ -4861,7 +4861,7 @@
             if (!task || !task.comments) return;
 
             task.comments.splice(commentIdx, 1);
-            renderComments(task);
+            render评论(task);
             autoSave(`Delete comment from "${task.title}"`);
         }
 
@@ -4948,10 +4948,10 @@
                     text: text,
                     createdAt: new Date().toISOString()
                 });
-                renderComments(task);
+                render评论(task);
                 input.value = '';
 
-                // AUTO-SAVE mit speziellem Hinweis bei Review-Tasks
+                // AUTO-SAVE mit speziellem Hinweis bei 待审核-Tasks
                 let commitMsg = `Comment on "${task.title}": ${text.substring(0, 50)}${text.length > 50 ? '...' : ''}`;
                 if (task.status === 'review') {
                     commitMsg = `💬 FEEDBACK on "${task.title}": ${text.substring(0, 50)}${text.length > 50 ? '...' : ''}`;
@@ -5113,7 +5113,7 @@
         }
 
         // === SETTINGS MODAL ===
-        function showSettingsModal() {
+        function show设置Modal() {
             renderProjectsList();
             // Show current gateway URL
             var gatewayInput = document.getElementById('gateway-url-input');
@@ -5140,7 +5140,7 @@
             document.getElementById('settings-modal').classList.add('visible');
         }
 
-        function hideSettingsModal() {
+        function hide设置Modal() {
             document.getElementById('settings-modal').classList.remove('visible');
         }
 
@@ -5568,7 +5568,7 @@
             currentEditingTaskId = templateId;
             isEditingTemplate = true;
             
-            document.getElementById('task-modal-title').textContent = '📑 Edit Template';
+            document.getElementById('task-modal-title').textContent = '📑 编辑模板';
             document.getElementById('task-title').value = template.title;
             document.getElementById('task-description').value = template.description;
             document.getElementById('task-status').value = template.baseStatus || 'backlog';
@@ -5580,7 +5580,7 @@
             renderTagChips();
             
             renderSubtasks(template);
-            renderComments(template);
+            render评论(template);
             
             document.getElementById('task-modal').classList.add('visible');
         }
@@ -5678,7 +5678,7 @@
             }, 200);
         }
 
-        // Template Done Confirmation Dialog
+        // Template 已完成 Confirmation Dialog
         function showTemplateExecutionDialog(taskId) {
             const task = STATE.data.tasks.find(t => t.id === taskId);
             if (!task || !task.createdFromTemplate) {
@@ -5703,7 +5703,7 @@
                             ▶ Just Execute (stays available)
                         </button>
                         <button class="btn btn-secondary" style="width: 100%;" onclick="archiveFromDialog('${taskId}')">
-                            📦 Archive Task
+                            📦 归档 Task
                         </button>
                     </div>
                 </div>
@@ -5852,19 +5852,19 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <label class="form-label">Title</label>
-                            <input type="text" class="form-input" id="scheduled-title" placeholder="Task title">
+                            <label class="form-label">标题</label>
+                            <input type="text" class="form-input" id="scheduled-title" placeholder="任务标题">
                         </div>
                         <div class="form-group">
-                            <label class="form-label">Description</label>
-                            <textarea class="form-input" id="scheduled-description" rows="2" placeholder="Task description"></textarea>
+                            <label class="form-label">描述</label>
+                            <textarea class="form-input" id="scheduled-description" rows="2" placeholder="任务描述"></textarea>
                         </div>
                         <div class="form-group">
                             <label class="form-label">Scheduled For</label>
                             <input type="datetime-local" class="form-input" id="scheduled-datetime" value="${dateStr}">
                         </div>
                         <div class="form-group">
-                            <label class="form-label">Priority</label>
+                            <label class="form-label">优先级</label>
                             <select class="form-input" id="scheduled-priority">
                                 <option value="low">Low</option>
                                 <option value="medium" selected>Medium</option>
@@ -5873,7 +5873,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-secondary" onclick="closeScheduledTaskDialog()">Cancel</button>
+                        <button class="btn btn-secondary" onclick="closeScheduledTaskDialog()" >取消</button>
                         <button class="btn btn-primary" onclick="saveScheduledTask()">Schedule Task</button>
                     </div>
                 </div>
@@ -6008,7 +6008,7 @@
                     // Disable the cron
                     disableCronJob(cronId);
                 } else {
-                    showToast('info', 'Drop on "In Progress" to execute, "Done" to disable');
+                    showToast('info', '拖到「进行中」会执行，拖到「已完成」会停用');
                 }
                 return;
             }
@@ -6026,7 +6026,7 @@
             const oldStatus = task.status;
             const statusChanged = task.status !== newStatus;
             
-            // Check if this is a template-created task being moved to Done
+            // Check if this is a template-created task being moved to 已完成
             if (newStatus === 'done' && task.createdFromTemplate) {
                 showTemplateExecutionDialog(draggedTaskId);
                 draggedTaskId = null;
@@ -6064,11 +6064,11 @@
             tasksInColumn.splice(insertIdx, 0, task);
 
             // Recalculate sortOrder for all tasks in this column
-            let currentPriority = null;
+            let current优先级 = null;
             let orderCounter = 0;
             tasksInColumn.forEach(t => {
-                if (t.priority !== currentPriority) {
-                    currentPriority = t.priority;
+                if (t.priority !== current优先级) {
+                    current优先级 = t.priority;
                     orderCounter = 0;
                 }
                 t.sortOrder = orderCounter++;
@@ -6242,7 +6242,7 @@
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" style="margin-right: auto;" onclick="convertCronToTask('${cronId}')">📋 As Task</button>
-                        <button class="btn btn-secondary" onclick="closeCronEditor()">Cancel</button>
+                        <button class="btn btn-secondary" onclick="closeCronEditor()" >取消</button>
                         <button class="btn btn-primary" onclick="saveCronChanges('${cronId}')">Save Changes</button>
                     </div>
                 </div>
@@ -6567,7 +6567,7 @@
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" id="wizard-back" onclick="wizardBack()" style="display: none;">Back</button>
-                        <button class="btn btn-secondary" onclick="closeTaskToCronWizard()">Cancel</button>
+                        <button class="btn btn-secondary" onclick="closeTaskToCronWizard()" >取消</button>
                         <button class="btn btn-primary" id="wizard-next" onclick="wizardNext('${taskId}')" style="display: none;">Next</button>
                         <button class="btn btn-primary" id="wizard-create" onclick="createCronFromTask('${taskId}')" style="display: none;">Create Cron</button>
                     </div>
@@ -6688,7 +6688,7 @@
                 STATE.crons = STATE.crons || [];
                 STATE.crons.push(newCron);
                 
-                // Archive original task
+                // 归档 original task
                 task.archived = true;
                 task.archivedAt = new Date().toISOString();
                 task.archivedReason = 'Converted to cron: ' + newCron.id;
@@ -6730,7 +6730,7 @@
                 STATE.crons = STATE.crons || [];
                 STATE.crons.push(newCron.job || newCron);
                 
-                // Archive original task
+                // 归档 original task
                 task.archived = true;
                 task.archivedAt = new Date().toISOString();
                 task.archivedReason = 'Converted to cron: ' + (newCron.id || newCron.job?.id);
@@ -6785,7 +6785,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-secondary" onclick="closeCronToTaskDialog()">Cancel</button>
+                        <button class="btn btn-secondary" onclick="closeCronToTaskDialog()" >取消</button>
                         <button class="btn btn-primary" onclick="executeConvertCronToTask('${cronId}')">Create Task</button>
                     </div>
                 </div>
