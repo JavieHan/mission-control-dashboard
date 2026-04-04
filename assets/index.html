@@ -3392,7 +3392,7 @@
                     hideAuthModal();
                     updateAuthUI();
                     await loadTasksFromGitHub();
-                    if (!(await loadCronsFromGateway())) await loadCronsFromGitHub();
+                    await loadCronsFromGitHub();
                 }, 300);
 
             } catch (error) {
@@ -5995,7 +5995,7 @@
             
             cronPollingIntervals[cronId] = setInterval(async () => {
                 try {
-                    if (!(await loadCronsFromGateway())) await loadCronsFromGitHub();
+                    await loadCronsFromGitHub();
                     const cron = STATE.crons?.find(c => c.id === cronId);
                     
                     if (cron && cron.lastStatus === 'ok') {
@@ -6763,7 +6763,7 @@
             cron刷新Interval = setInterval(async () => {
                 if (!document.hidden && STATE.token) {
                     try {
-                        if (!(await loadCronsFromGateway())) await loadCronsFromGitHub();
+                        await loadCronsFromGitHub();
                         renderCrons();
                     } catch (e) {
                         console.warn('Auto-refresh crons failed:', e);
@@ -6865,7 +6865,7 @@
             STATE.user = { login: 'local-user', avatar_url: '', name: 'Local User' };
             showDashboard();
             await loadTasksFromGitHub();
-            if (!(await loadCronsFromGateway())) await loadCronsFromGitHub();
+            await loadCronsFromGitHub();
         }
 
         function showLoginScreen() {
