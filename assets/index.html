@@ -2093,6 +2093,7 @@
             to { transform: rotate(360deg); }
         }
     </style>
+<link rel="icon" href="data:,">
 </head>
 <body>
     <script>window.__MC_FORCE_DASHBOARD__ = true;</script>
@@ -2864,19 +2865,6 @@
 
         // Auto-probe known Gateway URLs
         async function autoProbeGateway() {
-            if (STATE.gatewayUrl || localStorage.getItem('mc_gateway_url')) {
-                return getGatewayUrl();
-            }
-            
-            for (const url of KNOWN_GATEWAY_URLS) {
-                try {
-                    const found = await probeGateway(url);
-                    if (found) {
-                        setGatewayUrl(url);
-                        return url;
-                    }
-                } catch (e) { /* skip */ }
-            }
             return null;
         }
 // === EMBEDDED DATA (fallback when not logged in) ===
@@ -4371,7 +4359,7 @@
             if (dialog) dialog.remove();
         }
 
-        function toggle归档Search(enabled) {
+        window.toggle归档Search = function toggle归档Search(enabled) {
             show归档dInSearch = enabled;
             renderTasks();
             if (searchQuery) {
@@ -4379,7 +4367,7 @@
             }
         }
 
-        function handleSearch(query) {
+        window.handleSearch = function handleSearch(query) {
             searchQuery = query.toLowerCase().trim();
             
             // Re-render tasks if archive search is enabled (to show/hide archived tasks)
@@ -4446,7 +4434,7 @@
             }
         }
 
-        function clearSearch() {
+        window.clearSearch = function clearSearch() {
             const searchInput = document.getElementById('search-input');
             if (searchInput) {
                 searchInput.value = '';
