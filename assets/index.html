@@ -5284,34 +5284,8 @@
             return JSON.stringify(data);
         }
 
-        async function pollForUpdates() { return; /* Git removed */
-            if (STATE.hasUnsavedChanges || document.hidden) return;
-
-            try {
-                const response = await fetch('data/tasks.json', { cache: 'no-store' });
-
-                if (!response.ok) return;
-
-                const fileData = await response.json();
-                const bytes = Uint8Array.from(atob(fileData.content), c => c.charCodeAt(0));
-                const content = new TextDecoder().decode(bytes);
-                const newData = JSON.parse(content);
-
-                const newHash = hashData(newData);
-                if (lastDataHash && newHash !== lastDataHash) {
-                    STATE.data = newData;
-                    STATE.originalData = JSON.parse(JSON.stringify(newData));
-                    STATE.fileSha = fileData.sha;
-                    renderAll();
-                    showToast('success', '🔄 Dashboard updated');
-                }
-                lastDataHash = newHash;
-                lastPollTime = Date.now();
-                updateLiveIndicator();
-
-            } catch (error) {
-                console.log('Poll error:', error);
-            }
+        async function pollForUpdates() {
+            return;
         }
 
         function updateLiveIndicator() {
