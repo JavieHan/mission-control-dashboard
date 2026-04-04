@@ -3474,12 +3474,11 @@
                 .replace(/>/g, '&gt;');
             
             // Bold: **text** or __text__
-            html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-            html = html.replace(/__(.+?)__/g, '<strong>$1</strong>');
+            html = html.split('**').join('<strong>').replace(/<strong>([^<]+)<strong>/g, '<strong>$1</strong>');
+            html = html.split('__').join('<strong>').replace(/<strong>([^<]+)<strong>/g, '<strong>$1</strong>');
             
             // Italic: *text* or _text_ (but not inside words)
-            html = html.replace(/(?<!\w)\*(?!\*)(.+?)(?<!\*)\*(?!\w)/g, '<em>$1</em>');
-            html = html.replace(/(?<!\w)_(?!_)(.+?)(?<!_)_(?!\w)/g, '<em>$1</em>');
+            // Disabled temporarily to avoid browser regex syntax issues.
             
             // Inline code: `code`
             html = html.replace(/`([^`]+)`/g, '<code style="background: var(--bg-secondary); padding: 2px 6px; border-radius: 3px; font-family: monospace; font-size: 0.9em;">$1</code>');
