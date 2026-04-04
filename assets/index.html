@@ -7032,50 +7032,12 @@
     <script>
         // === LOGIN/AUTH GATE ===
         async function checkAuth() {
-            // Check both old and new token keys, migrate if needed
-            let token = localStorage.getItem('gh_token');
-            if (!token) {
-                const oldToken = localStorage.getItem('github_token');
-                if (oldToken) {
-                    // Migrate old token to new key
-                    localStorage.setItem('gh_token', oldToken);
-                    localStorage.removeItem('github_token');
-                    localStorage.removeItem('github_user'); // Clean up old user data
-                    token = oldToken;
-                    console.log('Migrated token from github_token to gh_token');
-                }
-            }
-
-            if (!token) {
-                showLoginScreen();
-                return;
-            }
-
-            // Validate token
-            try {
-                const response = await fetch('https://api.github.com/user', {
-                    headers: { 'Authorization': `token ${token}` }
-                });
-
-                if (response.ok) {
-                    const user = await response.json();
-                    STATE.token = token;
-                    STATE.user = user;
-                    showDashboard();
-                    await loadTasksFromGitHub();
-                    if (!(await loadCronsFromGateway())) await loadCronsFromGitHub();
-                } else {
-                    // Static site mode: skip GitHub auth gate.
-                    STATE.token = 'local-mode';
-                    STATE.user = { login: 'local-user', avatar_url: '', name: 'Local User' };
-                    showDashboard();
-                    await loadTasksFromGitHub();
-                    if (!(await loadCronsFromGateway())) await loadCronsFromGitHub();
-                }
-            } catch (e) {
-                console.error('Auth check failed:', e);
-                showLoginScreen();
-            }
+            // Static site mode: no GitHub auth gate.
+            STATE.token = 'local-mode';
+            STATE.user = { login: 'local-user', avatar_url: '', name: 'Local User' };
+            showDashboard();
+            await loadTasksFromGitHub();
+            if (!(await loadCronsFromGateway())) await loadCronsFromGitHub();
         }
 
         function showLoginScreen() {
