@@ -1,0 +1,29 @@
+{
+  "name": "mission-control-bridge",
+  "version": "1.0.0",
+  "description": "[![Agent-Powered Setup](https://img.shields.io/badge/Setup-Agent--Powered-brightgreen)](https://github.com/rdsthomas/mission-control) [![Clawdbot Skill](https://img.shields.io/badge/Clawdbot-Skill-blue)](https://clawdhub.com)",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "bridge": "node scripts/im-bridge.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JavieHan/mission-control-dashboard.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JavieHan/mission-control-dashboard/issues"
+  },
+  "homepage": "https://github.com/JavieHan/mission-control-dashboard#readme",
+  "type": "commonjs",
+  "dependencies": {
+    "im-sdk": "^1.0.26",
+    "tim-js-sdk": "^2.27.6"
+  }
+}

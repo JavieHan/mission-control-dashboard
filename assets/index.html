@@ -2104,7 +2104,7 @@
 
             <div class="login-card">
                 <h2>🔐 Login Required</h2>
-                <p>Connect your GitHub account to access the dashboard.</p>
+                <p>当前为本地直连模式，无需 GitHub 登录。</p>
 
                 <div class="login-steps">
                     <div class="login-step">
@@ -2147,7 +2147,7 @@
                     </div>
                 </div>
 
-                <p class="login-security">🔒 Your token is stored locally and never sent anywhere except GitHub.</p>
+                <p class="login-security">🔒 当前为本地直连模式，不再使用 GitHub 令牌。</p>
             </div>
         </div>
     </div>
@@ -2530,7 +2530,7 @@
             </div>
             <div class="modal-body">
                 <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
-                    Connect your GitHub account to create, edit, and save tasks directly to the repository.
+                    当前为本地直连模式，可直接在看板上创建、编辑和查看任务。
                 </p>
 
                 <div class="steps">
@@ -2565,7 +2565,7 @@
                     <label class="form-label">GitHub 个人访问令牌 (PAT)</label>
                     <input type="password" class="form-input" id="token-input" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off">
                     <div class="form-hint">
-                        🔒 Your token is stored locally and never sent anywhere except GitHub.
+                        🔒 当前为本地直连模式，不再使用 GitHub 令牌。
                     </div>
                     <div class="validation-loading" id="validation-loading">
                         <div class="spinner"></div>
@@ -3169,99 +3169,29 @@
             lastUpdated: new Date().toISOString()
         };
         async function loadTasksFromGitHub() {
-            if (!STATE.token) {
-                console.log('No token, using fallback data');
-                STATE.data = JSON.parse(JSON.stringify(FALLBACK_DATA));
-                return;
-            }
-
-            STATE.isLoading = true;
-            showToast('success', '📥 Loading tasks from GitHub...');
-
             try {
-                const response = await fetch(
-                    `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${CONFIG.tasksFile}`,
-                    {
-                        headers: {
-                            'Authorization': `token ${STATE.token}`,
-                            'Accept': 'application/vnd.github.v3+json'
-                        }
-                    }
-                );
-
-                if (!response.ok) {
-                    throw new Error('Could not load tasks file');
-                }
-
-                const fileData = await response.json();
-                // UTF-8 safe base64 decode
-                const bytes = Uint8Array.from(atob(fileData.content), c => c.charCodeAt(0));
-                const content = new TextDecoder().decode(bytes);
-                const data = JSON.parse(content);
-
+                const response = await fetch('assets/data/tasks.json', { cache: 'no-store' });
+                if (!response.ok) throw new Error('Could not load local tasks file');
+                const data = await response.json();
                 STATE.data = data;
                 STATE.originalData = JSON.parse(JSON.stringify(data));
-                STATE.fileSha = fileData.sha;  // Needed for updates
-
-                console.log('Loaded tasks from GitHub:', data.tasks.length, 'tasks');
-                showToast('success', `✓ Loaded ${data.tasks.length} tasks from GitHub`);
-
+                STATE.fileSha = null;
+                STATE.isLoading = false;
+                renderAll();
             } catch (error) {
-                console.error('Error loading from GitHub:', error);
-                showToast('error', 'Could not load from GitHub, using cached data');
+                console.error('Error loading local tasks:', error);
                 STATE.data = JSON.parse(JSON.stringify(FALLBACK_DATA));
+                STATE.isLoading = false;
+                renderAll();
             }
-
-            STATE.isLoading = false;
-            renderAll();
         }
 
         async function saveTasksToGitHub(commitMessage) {
-            if (!STATE.token || !STATE.data) {
-                showToast('error', 'Not logged in');
-                return false;
-            }
-
-            try {
-                const content = btoa(unescape(encodeURIComponent(JSON.stringify(STATE.data, null, 2))));
-
-                const response = await fetch(
-                    `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${CONFIG.tasksFile}`,
-                    {
-                        method: 'PUT',
-                        headers: {
-                            'Authorization': `token ${STATE.token}`,
-                            'Accept': 'application/vnd.github.v3+json',
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            message: commitMessage || 'Update tasks via Mission Control',
-                            content: content,
-                            sha: STATE.fileSha,
-                            branch: CONFIG.branch
-                        })
-                    }
-                );
-
-                if (!response.ok) {
-                    const error = await response.json();
-                    throw new Error(error.message || 'Failed to save');
-                }
-
-                const result = await response.json();
-                STATE.fileSha = result.content.sha;
-                STATE.originalData = JSON.parse(JSON.stringify(STATE.data));
-                STATE.hasUnsavedChanges = false;
-                document.getElementById('unsaved-banner').classList.remove('visible');
-
-                showToast('success', '✓ Saved to GitHub!');
-                return true;
-
-            } catch (error) {
-                console.error('Error saving to GitHub:', error);
-                showToast('error', `Failed to save: ${error.message}`);
-                return false;
-            }
+            // Static site mode: only update UI state locally.
+            STATE.originalData = JSON.parse(JSON.stringify(STATE.data));
+            STATE.hasUnsavedChanges = false;
+            document.getElementById('unsaved-banner').classList.remove('visible');
+            return true;
         }
 
         function renderAll() {
@@ -3339,7 +3269,7 @@
         // Save crons to GitHub (for fallback when Gateway unavailable)
         async function saveCronsToGitHub(commitMessage) {
             if (!STATE.token) {
-                showToast('error', 'Not logged in - cannot save crons');
+                showToast('error', '本地模式不需要 GitHub 登录 - cannot save crons');
                 return false;
             }
             
@@ -3520,13 +3450,13 @@
                 STATE.token = token;
                 STATE.user = user;
 
-                // Update UI and load data
+                // Static site mode: load local data, then show dashboard
                 setTimeout(async () => {
                     hideAuthModal();
                     updateAuthUI();
                     await loadTasksFromGitHub();
                     if (!(await loadCronsFromGateway())) await loadCronsFromGitHub();
-                }, 1000);
+                }, 300);
 
             } catch (error) {
                 showValidationError(error.message);
@@ -4218,7 +4148,7 @@
         // === AUTO-SAVE FUNKTION ===
         async function autoSave(action) {
             if (!STATE.token || !STATE.user) {
-                showToast('warning', 'Not logged in - changes not saved');
+                showToast('warning', '本地模式不需要 GitHub 登录 - changes not saved');
                 markAsChanged();
                 return;
             }
@@ -7135,8 +7065,12 @@
                     await loadTasksFromGitHub();
                     if (!(await loadCronsFromGateway())) await loadCronsFromGitHub();
                 } else {
-                    localStorage.removeItem('gh_token');
-                    showLoginScreen();
+                    // Static site mode: skip GitHub auth gate.
+                    STATE.token = 'local-mode';
+                    STATE.user = { login: 'local-user', avatar_url: '', name: 'Local User' };
+                    showDashboard();
+                    await loadTasksFromGitHub();
+                    if (!(await loadCronsFromGateway())) await loadCronsFromGitHub();
                 }
             } catch (e) {
                 console.error('Auth check failed:', e);
@@ -7145,8 +7079,8 @@
         }
 
         function showLoginScreen() {
-            document.getElementById('login-screen').style.display = 'flex';
-            document.getElementById('dashboard').style.display = 'none';
+            // Static site mode: do not block behind GitHub login.
+            showDashboard();
         }
 
         function showDashboard() {
@@ -7157,8 +7091,8 @@
             if (STATE.user) {
                 document.getElementById('btn-connect').style.display = 'none';
                 document.getElementById('user-profile').style.display = 'flex';
-                document.getElementById('user-avatar').src = STATE.user.avatar_url;
-                document.getElementById('user-name').textContent = STATE.user.login;
+                document.getElementById('user-avatar').src = STATE.user.avatar_url || '';
+                document.getElementById('user-name').textContent = STATE.user.login || 'local-user';
             }
         }
 
@@ -7214,6 +7148,31 @@
         // Check auth on page load
         checkAuth();
     </script>
+
+<script src="https://cdn.jsdelivr.net/npm/tim-js-sdk/tim-js-friendship.js"></script>
+<script>
+  async function initLobsterBridge() {
+    const SDKAppID = 1600135634;
+    const userID = 'mobile_test';
+    const userSig = 'eJwtzF0LgjAYhuH-slNDX*emS*jIsxR2YBSCEKmr3lIbc0gQ-ffy4-C5bng*5JDl7qgMiQl1gWzmjY3qLV5x5u5VYavOVg12zUPzvGiNDYn9EMAPeBiwpai3RqP*zjmnALCoxW6yKOJUCKCrDnib3s2pLz22FZk*1nCXtC09URjdps6j2I9CJOmYyzRKKumwHfn*AB3SM7E_';
+    const tim = TIM.create({ SDKAppID });
+    await tim.login({ userID, userSig });
+    window.callLobster = async function(action, taskId) {
+      const msg = tim.createTextMessage({
+        to: 'mac_mission_control',
+        conversationType: TIM.TYPES.CONV_C2C,
+        payload: { text: `[${action}] ${taskId}` }
+      });
+      return tim.sendMessage(msg);
+    };
+    window.__lobsterTim = tim;
+    return tim;
+  }
+  window.addEventListener('load', () => {
+    initLobsterBridge().catch(err => console.error('Lobster bridge init failed:', err));
+  });
+</script>
+
 </body>
 </html>
 <!-- test Wed Jan 28 19:46:49 CET 2026 -->
