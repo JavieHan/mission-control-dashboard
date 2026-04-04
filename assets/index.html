@@ -2787,10 +2787,10 @@
             }
         }
 
-        // === GATEWAY ADAPTER (OpenClaw /tools/invoke) ===
+        // === GATEWAY ADAPTER (OpenClaw (gateway disabled)) ===
 
         /**
-         * Invoke an OpenClaw tool via /tools/invoke.
+         * Invoke an OpenClaw tool via (gateway disabled).
          * @param {string} tool - Tool name (e.g. 'cron')
          * @param {object} args - Tool arguments
          * @param {object} [opts] - { gatewayUrl, token, timeout }
@@ -2816,7 +2816,7 @@
             
             let response;
             try {
-                response = await fetch(`${url}/tools/invoke`, {
+                response = await fetch(`${url}(gateway disabled)`, {
                     method: 'POST',
                     headers,
                     body: JSON.stringify({ tool, args }),
@@ -2845,7 +2845,7 @@
         async function probeGateway(url) {
             try {
                 const token = localStorage.getItem(`gateway_token_${btoa(url)}`) || '';
-                await gatewayInvoke('cron', { action: 'list' }, { gatewayUrl: url, token, timeout: 3000 });
+                /* gateway disabled: action: 'list' }, { gatewayUrl: url, token, timeout: 3000 });
                 return true;
             } catch (e) {
                 if (e.status === 401) return true;
@@ -3164,13 +3164,13 @@
             }
         }
 
-        // Load crons from Gateway via /tools/invoke
+        // Load crons from Gateway via (gateway disabled)
         async function loadCronsFromGateway() {
             const gatewayUrl = getGatewayUrl();
             if (!gatewayUrl) return false;
             
             try {
-                const result = await gatewayInvoke('cron', { action: 'list', includeDisabled: true });
+                const result = /* gateway disabled: action: 'list', includeDisabled: true });
                 const data = extractInvokeData(result);
                 const jobs = data.jobs || [];
                 
@@ -5976,7 +5976,7 @@
             showToast('info', `🚀 Executing "${cron.name}"...`);
             
             try {
-                await gatewayInvoke('cron', { action: 'run', jobId: cronId });
+                return;
                 showToast('success', `✓ Cron "${cron.name}" started`);
                 pollCronStatus(cronId);
             } catch (e) {
@@ -6030,7 +6030,7 @@
             }
             
             try {
-                await gatewayInvoke('cron', { action: 'update', jobId: cronId, patch: { enabled: false } });
+                return;
                 cron.enabled = false;
                 renderCrons();
                 showToast('success', `Disabled cron "${cron.name}"`);
@@ -6309,7 +6309,7 @@
             }
             
             try {
-                await gatewayInvoke('cron', { 
+                /* gateway disabled: 
                     action: 'update', 
                     jobId: cronId, 
                     patch: { name, schedule: { kind: 'cron', expr: schedule, tz: timezone }, enabled } 
@@ -6683,7 +6683,7 @@
                 const gatewayUrl = getGatewayUrl();
                 if (gatewayUrl) {
                     try {
-                        await gatewayInvoke('cron', { action: 'remove', jobId: cronId });
+                        /* gateway disabled: action: 'remove', jobId: cronId });
                         STATE.crons = STATE.crons.filter(c => c.id !== cronId);
                     } catch (e) {
                         showToast('info', `Run: openclaw cron remove ${cronId}`, 8000);
