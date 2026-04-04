@@ -3150,87 +3150,9 @@
             }
         }
 
-        // Load crons from Gateway via (gateway disabled)
+        // Load crons from Gateway (disabled in Mission Control)
         async function loadCronsFromGateway() {
-            const gatewayUrl = getGatewayUrl();
-            if (!gatewayUrl) return false;
-            
-            try {
-                const result = /* gateway disabled: action: 'list', includeDisabled: true });
-                const data = extractInvokeData(result);
-                const jobs = data.jobs || [];
-                
-                // Map gateway format → dashboard format
-                STATE.crons = jobs.map(function(job) { return {
-                    id: job.id,
-                    name: job.name || '(unnamed)',
-                    prompt: job.payload && job.payload.text ? job.payload.text : '',
-                    schedule: job.schedule && job.schedule.expr ? job.schedule.expr : (job.schedule && job.schedule.everyMs ? job.schedule.everyMs : ''),
-                    scheduleKind: job.schedule && job.schedule.kind ? job.schedule.kind : 'cron',
-                    scheduleHuman: cronToHuman(job.schedule && job.schedule.expr ? job.schedule.expr : ''),
-                    timezone: job.schedule && job.schedule.tz ? job.schedule.tz : 'UTC',
-                    enabled: job.enabled !== false,
-                    sessionTarget: job.sessionTarget || 'main',
-                    payload: job.payload,
-                    tags: job.tags || [],
-                    project: job.project || '',
-                    lastRunAt: job.state && job.state.lastRunAtMs ? new Date(job.state.lastRunAtMs).toISOString() : null,
-                    nextRunAt: job.state && job.state.nextRunAtMs ? new Date(job.state.nextRunAtMs).toISOString() : null,
-                    lastStatus: job.state && job.state.lastStatus ? job.state.lastStatus : null,
-                    lastDurationMs: job.state && job.state.lastDurationMs ? job.state.lastDurationMs : 0,
-                    consecutiveErrors: job.state && job.state.consecutiveErrors ? job.state.consecutiveErrors : 0,
-                    _source: 'gateway'
-                }; });
-                
-                renderCrons();
-                return true;
-            } catch (e) {
-                return false;
-            }
-        }
-        
-        // Save crons to  (for fallback when Gateway unavailable)
-        async function saveCronsTo(commitMessage) {
-            if (!STATE.token) {
-                showToast('error', '本地模式不需要  登录 - cannot save crons');
-                return false;
-            }
-            
-            try {
-                const content = btoa(unescape(encodeURIComponent(JSON.stringify({ crons: STATE.crons }, null, 2))));
-                
-                const response = await fetch(
-                    `data/crons.json`,
-                    {
-                        method: 'PUT',
-                        headers: {
-                            'Authorization': `token ${STATE.token}`,
-                            'Accept': 'application/json',
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            message: commitMessage || 'Update crons via Mission Control',
-                            content: content,
-                            sha: STATE.cronsSha,
-                            branch: CONFIG.branch
-                        })
-                    }
-                );
-                
-                if (!response.ok) {
-                    const error = await response.json();
-                    throw new Error(error.message || 'Failed to save crons');
-                }
-                
-                const result = await response.json();
-                STATE.cronsSha = result.content.sha;
-                return true;
-                
-            } catch (error) {
-                console.error('Error saving crons to :', error);
-                showToast('error', `Failed to save crons: ${error.message}`);
-                return false;
-            }
+            return false;
         }
 
         function renderCrons() {
