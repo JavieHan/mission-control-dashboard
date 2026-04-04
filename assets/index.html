@@ -6987,15 +6987,19 @@
         // Check auth on page load
         (async () => {
             try {
-                if (typeof STATE === 'undefined' || !STATE) { window.STATE = window.STATE || {}; }
+                window.STATE = window.STATE || {};
                 STATE.token = 'local-mode';
                 STATE.user = { login: 'local-user', avatar_url: '', name: 'Local User' };
                 const login = document.getElementById('login-screen');
                 if (login) login.style.display = 'none';
                 const dash = document.getElementById('dashboard');
                 if (dash) dash.style.display = 'block';
-                await loadTasksFromGitHub();
-                if (!(await loadCronsFromGateway())) await loadCronsFromGitHub();
+                if (typeof loadTasksFromGitHub === 'function') await loadTasksFromGitHub();
+                if (typeof loadCronsFromGateway === 'function') {
+                    if (!(await loadCronsFromGateway()) && typeof loadCronsFromGitHub === 'function') await loadCronsFromGitHub();
+                } else if (typeof loadCronsFromGitHub === 'function') {
+                    await loadCronsFromGitHub();
+                }
             } catch (e) {
                 console.error('startup failed', e);
             }
