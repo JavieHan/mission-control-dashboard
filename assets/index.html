@@ -6423,10 +6423,21 @@
     const SDKAppID = 1600135634;
     const userID = 'mobile_test';
     const userSig = 'eJwtzF0LgjAYhuH-slNDX*emS*jIsxR2YBSCEKmr3lIbc0gQ-ffy4-C5bng*5JDl7qgMiQl1gWzmjY3qLV5x5u5VYavOVg12zUPzvGiNDYn9EMAPeBiwpai3RqP*zjmnALCoxW6yKOJUCKCrDnib3s2pLz22FZk*1nCXtC09URjdps6j2I9CJOmYyzRKKumwHfn*AB3SM7E_';
-    const tim = TIM.create({ SDKAppID });
-    console.log('[lobster] init', { SDKAppID, userID });
+    const tim = window.TIM && typeof TIM.create === 'function' ? TIM.create({ SDKAppID }) : null;
+    console.log('[lobster] init', { SDKAppID, userID, shim: !tim });
+    if (!tim) {
+      window.callLobster = async function(action, taskId) {
+        console.log('[lobster shim] ', action, taskId);
+        return { data: { messageID: 'shim-' + taskId } };
+      };
+      return null;
+    }
     await tim.login({ userID, userSig });
     window.callLobster = async function(action, taskId) {
+      if (!tim) {
+        console.log('[lobster shim]', action, taskId);
+        return { data: { messageID: 'shim-' + taskId } };
+      }
       const msg = tim.createTextMessage({
         to: 'mac_mission_control',
         conversationType: TIM.TYPES.CONV_C2C,
