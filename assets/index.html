@@ -6706,93 +6706,14 @@
         let collaboratorsLoaded = false;
 
         async function loadCollaborators() {
-            if (collaboratorsLoaded) return;
-
             const container = document.getElementById('collaborators-container');
-            const statsContainer = document.getElementById('people-stats');
-
-            // Show loading
-            container.innerHTML = `
-                <div class="people-loading">
-                    <div class="spinner"></div>
-                    <p>Loading collaborators...</p>
-                </div>
-            `;
-
-            container.innerHTML = `
-                <div class="people-empty">
-                    <div class="people-empty-icon">🏠</div>
-                    <p>本地模式不读取 GitHub 协作者</p>
-                </div>
-            `;
-            return;
-
-                const collaborators = await response.json();
-                collaboratorsLoaded = true;
-
-                if (collaborators.length === 0) {
-                    container.innerHTML = `
-                        <div class="people-empty">
-                            <div class="people-empty-icon">👤</div>
-                            <p>No collaborators found</p>
-                        </div>
-                    `;
-                    return;
-                }
-
-                // Count by role
-                const roleCounts = { admin: 0, maintain: 0, write: 0, triage: 0, read: 0 };
-                collaborators.forEach(c => {
-                    const role = c.role_name?.toLowerCase() || 'read';
-                    if (roleCounts[role] !== undefined) roleCounts[role]++;
-                });
-
-                // Render stats
-                statsContainer.innerHTML = `
-                    <div class="people-stat"><strong>${collaborators.length}</strong> members</div>
-                    ${roleCounts.admin > 0 ? `<div class="people-stat"><strong>${roleCounts.admin}</strong> admins</div>` : ''}
-                `;
-
-                // Render collaborator cards
-                const cardsHtml = collaborators.map(c => {
-                    const role = c.role_name?.toLowerCase() || 'read';
-                    const roleLabel = role.charAt(0).toUpperCase() + role.slice(1);
-                    const roleIcon = {
-                        admin: '👑',
-                        maintain: '🔧',
-                        write: '✏️',
-                        triage: '📋',
-                        read: '👁️'
-                    }[role] || '👤';
-
-                    return `
-                        <div class="collaborator-card">
-                            <img class="collaborator-avatar" src="${c.avatar_url}" alt="${c.login}" loading="lazy">
-                            <div class="collaborator-info">
-                                <div class="collaborator-name">${c.login}</div>
-                                <div class="collaborator-username">
-                                    <a href="${c.html_url}" target="_blank" rel="noopener">@${c.login}</a>
-                                </div>
-                                <span class="collaborator-role role-${role}">${roleIcon} ${roleLabel}</span>
-                            </div>
-                        </div>
-                    `;
-                }).join('');
-
-                container.innerHTML = `<div class="collaborators-grid">${cardsHtml}</div>`;
-
+            if (!container) return;
+            try {
+                container.innerHTML = '<div class="people-empty"><div class="people-empty-icon">🏠</div><p>本地模式不读取 GitHub 协作者</p></div>';
             } catch (error) {
                 console.error('Failed to load collaborators:', error);
-                container.innerHTML = `
-                    <div class="people-empty">
-                        <div class="people-empty-icon">⚠️</div>
-                        <p>Failed to load collaborators</p>
-                        <p style="font-size: 0.875rem; margin-top: 0.5rem;">${error.message}</p>
-                    </div>
-                `;
             }
         }
-
         // Extend switchView to load collaborators when 成员 tab is selected
         const originalSwitchView = switchView;
         switchView = function(viewName) {
