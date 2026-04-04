@@ -6968,10 +6968,15 @@
             showDashboard();
         }
 
-        // Handle Enter key on login input
-        document.getElementById('login-token-input').addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') handleLogin();
-        });
+        // Handle Enter key on login input (guarded for local mode)
+        (function() {
+            const loginInput = document.getElementById('login-token-input');
+            if (loginInput) {
+                loginInput.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') handleLogin();
+                });
+            }
+        })();
 
         // Check auth on page load
         (async () => {
