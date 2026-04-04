@@ -2846,10 +2846,8 @@
         async function probeGateway(url) {
             try {
                 const token = localStorage.getItem(`gateway_token_${btoa(url)}`) || '';
-                /* gateway disabled: action: 'list' }, { gatewayUrl: url, token, timeout: 3000 });
-                return true;
+                return !!(url && token !== undefined);
             } catch (e) {
-                if (e.status === 401) return true;
                 return false;
             }
         }
