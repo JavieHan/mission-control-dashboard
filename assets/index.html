@@ -6952,15 +6952,21 @@
         }
 
         function showDashboard() {
-            document.getElementById('login-screen').style.display = 'none';
-            document.getElementById('dashboard').style.display = 'block';
+            const loginEl = document.getElementById('login-screen');
+            const dashEl = document.getElementById('dashboard');
+            if (loginEl) loginEl.style.display = 'none';
+            if (dashEl) dashEl.style.display = 'block';
 
             // Update UI with user info
-            if (STATE.user) {
-                document.getElementById('btn-connect').style.display = 'none';
-                document.getElementById('user-profile').style.display = 'flex';
-                document.getElementById('user-avatar').src = STATE.user.avatar_url || '';
-                document.getElementById('user-name').textContent = STATE.user.login || 'local-user';
+            if (STATE && STATE.user) {
+                const btnConnect = document.getElementById('btn-connect');
+                const profile = document.getElementById('user-profile');
+                const avatar = document.getElementById('user-avatar');
+                const name = document.getElementById('user-name');
+                if (btnConnect) btnConnect.style.display = 'none';
+                if (profile) profile.style.display = 'flex';
+                if (avatar) avatar.src = STATE.user.avatar_url || '';
+                if (name) name.textContent = STATE.user.login || 'local-user';
             }
         }
 
@@ -6981,14 +6987,17 @@
         // Check auth on page load
         (async () => {
             try {
+                if (typeof STATE === 'undefined' || !STATE) { window.STATE = window.STATE || {}; }
                 STATE.token = 'local-mode';
                 STATE.user = { login: 'local-user', avatar_url: '', name: 'Local User' };
-                showDashboard();
+                const login = document.getElementById('login-screen');
+                if (login) login.style.display = 'none';
+                const dash = document.getElementById('dashboard');
+                if (dash) dash.style.display = 'block';
                 await loadTasksFromGitHub();
                 if (!(await loadCronsFromGateway())) await loadCronsFromGitHub();
             } catch (e) {
                 console.error('startup failed', e);
-                showDashboard();
             }
         })();
     </script>
