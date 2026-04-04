@@ -3170,7 +3170,7 @@
         };
         async function loadTasksFromGitHub() {
             try {
-                const response = await fetch('assets/data/tasks.json', { cache: 'no-store' });
+                const response = await fetch('data/tasks.json', { cache: 'no-store' });
                 if (!response.ok) throw new Error('Could not load local tasks file');
                 const data = await response.json();
                 STATE.data = data;
@@ -4032,6 +4032,11 @@
                     time: 'just now'
                 });
                 renderActivity();
+            }
+
+            // Notify local IM bridge when entering In Progress
+            if (newStatus === 'in_progress' && typeof window.callLobster === 'function') {
+                window.callLobster('START_TASK', task.id).catch(err => console.error('callLobster failed:', err));
             }
 
             // Smooth re-render without full board animation
