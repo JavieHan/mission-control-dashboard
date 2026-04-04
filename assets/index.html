@@ -3562,7 +3562,7 @@
                 let tasks = data.tasks.filter(t => t.status === status && !t.isTemplate && t.status !== 'scheduled');
 
                 // Filter out archived tasks (unless searching with archive enabled)
-                if (!(show归档dInSearch && searchQuery)) {
+                if (!(showArchivedInSearch && searchQuery)) {
                     tasks = tasks.filter(t => !t.archived);
                 }
 
@@ -4154,7 +4154,7 @@
 
         let currentFilter = 'all';
         let searchQuery = '';
-        let show归档dInSearch = false;
+        let showArchivedInSearch = false;
 
         // === ARCHIVE FUNCTIONS ===
         function archiveTask(taskId) {
@@ -4359,8 +4359,8 @@
             if (dialog) dialog.remove();
         }
 
-        window.toggle归档Search = function toggle归档Search(enabled) {
-            show归档dInSearch = enabled;
+        window.toggle归档Search = function toggleArchiveSearch(enabled) {
+            showArchivedInSearch = enabled;
             renderTasks();
             if (searchQuery) {
                 applySearchFilter();
@@ -4371,7 +4371,7 @@
             searchQuery = query.toLowerCase().trim();
             
             // Re-render tasks if archive search is enabled (to show/hide archived tasks)
-            if (show归档dInSearch) {
+            if (showArchivedInSearch) {
                 renderTasks();
             }
             
@@ -4444,7 +4444,7 @@
             searchQuery = '';
             
             // Re-render to hide archived tasks when search is cleared
-            if (show归档dInSearch) {
+            if (showArchivedInSearch) {
                 renderTasks();
             }
             
