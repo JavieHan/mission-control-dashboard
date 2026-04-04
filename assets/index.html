@@ -7123,6 +7123,7 @@
     const userID = 'mobile_test';
     const userSig = 'eJwtzF0LgjAYhuH-slNDX*emS*jIsxR2YBSCEKmr3lIbc0gQ-ffy4-C5bng*5JDl7qgMiQl1gWzmjY3qLV5x5u5VYavOVg12zUPzvGiNDYn9EMAPeBiwpai3RqP*zjmnALCoxW6yKOJUCKCrDnib3s2pLz22FZk*1nCXtC09URjdps6j2I9CJOmYyzRKKumwHfn*AB3SM7E_';
     const tim = TIM.create({ SDKAppID });
+    console.log('[lobster] init', { SDKAppID, userID });
     await tim.login({ userID, userSig });
     window.callLobster = async function(action, taskId) {
       const msg = tim.createTextMessage({
@@ -7130,13 +7131,15 @@
         conversationType: TIM.TYPES.CONV_C2C,
         payload: { text: `[${action}] ${taskId}` }
       });
-      return tim.sendMessage(msg);
+      const res = await tim.sendMessage(msg);
+      console.log('[lobster] sent', action, taskId, res);
+      return res;
     };
     window.__lobsterTim = tim;
     return tim;
   }
   window.addEventListener('load', () => {
-    initLobsterBridge().catch(err => console.error('Lobster bridge init failed:', err));
+    initLobsterBridge().then(() => console.log('[lobster] ready')).catch(err => console.error('Lobster bridge init failed:', err));
   });
 </script>
 
